@@ -1,11 +1,9 @@
 package com.pbp_b_kelompok_1.ticketplease.api;
 
 public class UserApi {
-    public static String BASE_URL = "ini url woe";
+    public static String BASE_URL = "http://192.168.100.5:8000/api/";
 
-    public static final String GET_ALL_URL = BASE_URL + "";
-    public static final String GET_BY_ID_URL = BASE_URL + "";
-    public static final String ADD_URL = BASE_URL + "";
-    public static final String UPDATE_URL = BASE_URL + "";
-    public static final String DELETE_URL = BASE_URL + "";
+    public static final String REGISTER_URL = BASE_URL + "register";
+    public static final String LOGIN_URL = BASE_URL + "login";
+
 }

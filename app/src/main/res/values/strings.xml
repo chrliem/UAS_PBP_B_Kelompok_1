@@ -1,3 +1,114 @@
 <resources>
     <string name="app_name">TicketPlease</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="linklogin"><u>Login</u></string>
+    <string name="linkregister"><u>Register</u></string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="belum_punya_akun">Belum Punya Akun?</string>
+    <string name="e_mail">E-mail</string>
+    <string name="name">Name</string>
+    <string name="sudah_punya_akun">Sudah Punya Akun?</string>
+    <string name="home">Home</string>
+    <string name="transaksi">Transaksi</string>
+    <string name="riwayat">Riwayat</string>
+    <string name="profile">Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome,</string>
+    <string name="username1">Username!</string>
+    <string name="judulevent">Judul Event</string>
+    <string name="tanggalevent">Tanggal</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="venue">Venue:</string>
+    <string name="address">Address:</string>
+    <string name="nama_tempat">Nama Tempat</string>
+    <string name="price">Price:</string>
+    <string name="rp_xx_xxx_xx">Rp XX.XXX,XX</string>
+    <string name="pesan_tiket">Pesan Tiket</string>
+    <string name="event_details">EVENT DETAILS</string>
+    <string name="nama">Nama</string>
+    <string name="nama_pengguna">Nama Pengguna</string>
+    <string name="username_pengguna">Username Pengguna</string>
+    <string name="email_pengguna">Email Pengguna</string>
+    <string name="alamat_pengguna">Alamat Pengguna</string>
+    <string name="logout">Logout</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiY2hybGllbSIsImEiOiJja3VtNHlwZHIyNXk1MzF0NG5oaTIza2plIn0.87_zBt7PyFCQpycnj1l_Xg</string>
+    <string name="user_location_permission_explanation">Apakah diperbolehkan?</string>
+    <string name="user_location_permission_not_granted">Tidak boleh</string>
+    <string name="pesan">Pesan</string>
+    <string name="e_wallet">E-Wallet</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="virtual_account">Virtual Account</string>
+    <string name="metode_pembayaran">Metode Pembayaran</string>
+    <string name="harga">Harga</string>
+    <string name="pilih_seat">Pilih Seat</string>
+    <string name="pilih_section">Pilih Section</string>
+    <string name="pilih_waktu">Pilih Waktu</string>
+    <string name="wajib_menunjukkan_tiket_saat_datang_ke_lokasi">Wajib menunjukkan tiket saat datang ke lokasi</string>
+    <string name="tiket_yang_sudah_dibeli_tidak_dapat_direfund">Tiket yang sudah dibeli tidak dapat direfund</string>
+    <string name="tiket_hanya_berlaku_untuk_satu_orang">Tiket hanya berlaku untuk satu orang</string>
+    <string name="your_order">YOUR ORDER</string>
+    <string name="ketentuan">Ketentuan:</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="kode_booking">Kode Booking</string>
+    <string name="nama_event">Nama Event</string>
+    <string name="jenis_event">Jenis Event</string>
+    <string name="nama_pemilik_tiket">Nama Pemilik Tiket</string>
+    <string name="text">text</string>
+    <string name="text_baru">text baru</string>
+    <string name="update">Update</string>
+    <string name="empty_text1">Tiket kamu masih kosong..</string>
+    <string name="emptyText2">Yuk cek event-event menarik di sekitarmu!</string>
+    <string name="back_to_home">Back to Home</string>
+    <string name="your_ticket">YOUR TICKET</string>
+    <string name="section">Section</string>
+    <string name="seat_number">Seat Number</string>
+    <string name="tanggal_dan_waktu">Tanggal dan Waktu</string>
+    <string name="venue_tiket">Venue</string>
+    <string-array name="section_array">
+        <item>VVIP</item>
+        <item>VIP</item>
+        <item>Reguler</item>
+    </string-array>
+    <string-array name="seat_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="time_array">
+        <item>09.00 WIB</item>
+        <item>13.00 WIB</item>
+        <item>17.00 WIB</item>
+        <item>19.00 WIB</item>
+    </string-array>
 </resources>

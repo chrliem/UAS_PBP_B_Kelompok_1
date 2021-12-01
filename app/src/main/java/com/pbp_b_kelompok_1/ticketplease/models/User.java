@@ -3,24 +3,23 @@ package com.pbp_b_kelompok_1.ticketplease.models;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
     private int idUser;
+    @SerializedName("name")
     private String fullName;
     private String email;
     private String username;
     private String password;
-    private String alamat;
-    private byte[] profilePicture;
 
-    public User(int idUser, String fullName, String email, String username, String password, String alamat, byte[] profilePicture) {
+
+    public User(int idUser, String fullName, String email, String username, String password) {
         this.idUser = idUser;
         this.fullName = fullName;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.alamat = alamat;
-        this.profilePicture = profilePicture;
     }
 
     public int getIdUser() {
@@ -62,20 +61,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getAlamat() {
-        return alamat;
-    }
-
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
 }
+
