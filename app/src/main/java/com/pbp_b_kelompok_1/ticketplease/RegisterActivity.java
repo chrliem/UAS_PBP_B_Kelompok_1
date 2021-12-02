@@ -21,6 +21,7 @@ import com.pbp_b_kelompok_1.ticketplease.models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,7 +113,16 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        try {
+                             String responseBody = new String(error.networkResponse.data,
+                             StandardCharsets.UTF_8);
+                             JSONObject errors = new JSONObject(responseBody);
+                             Toast.makeText(RegisterActivity.this,
+                             errors.getString("message"), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                             Toast.makeText(RegisterActivity.this, e.getMessage(),
+                             Toast.LENGTH_SHORT).show();
+                             }
                     }
                 }){
             @Override
