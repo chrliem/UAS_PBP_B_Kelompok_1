@@ -3,10 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_event.xml" value="0.16" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_login.xml" value="0.2346014492753623" />
-        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_main.xml" value="0.22554347826086957" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_register.xml" value="0.176" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_splash_screen.xml" value="0.2346014492753623" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/fragment_event.xml" value="0.12708333333333333" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/fragment_riwayat.xml" value="0.23777173913043478" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/fragment_tiket_event.xml" value="0.23777173913043478" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/fragment_tiket_movie.xml" value="0.2359375" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/layout_loading.xml" value="0.12708333333333333" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/rv_event.xml" value="0.1" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/rv_riwayat.xml" value="0.23777173913043478" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/rv_tiketevent.xml" value="0.23777173913043478" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/rv_tiketmovie.xml" value="0.23777173913043478" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>

@@ -40,7 +40,7 @@ public class FragmentEvent extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        binding = FragmentEventBinding.inflate(inflater,R.layout.fragment_event,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_event,container,false);
         return binding.getRoot();
     }
 
@@ -48,7 +48,7 @@ public class FragmentEvent extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        tvUsername = view.findViewById(R.id.tvUsername);
+        tvUsername = view.findViewById(R.id.tvUsername);
 //        userPreferences = new UserPreferences(this.getContext());
 //        user = userPreferences.getUserLogin();
 
@@ -56,7 +56,7 @@ public class FragmentEvent extends Fragment {
         listEvent = new DummyEvent().dataEvent;
 
         EventAdapter adapter = new EventAdapter(getContext(), listEvent);
-//        binding.rvEvent.setLayoutManager(new LinearLayoutManager((Activity) this.getContext()));
-//        binding.rvEvent.setAdapter(adapter);
+        binding.rvEvent.setLayoutManager(new LinearLayoutManager((Activity) this.getContext()));
+        binding.rvEvent.setAdapter(adapter);
     }
 }

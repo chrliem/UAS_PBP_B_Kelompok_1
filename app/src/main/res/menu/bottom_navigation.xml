@@ -7,16 +7,21 @@
         android:icon="@drawable/ic_baseline_event_24"/>
 
     <item
+        android:id="@+id/tiketEvent"
+        android:enabled="true"
+        android:title="Tiket Event"
+        android:icon="@drawable/ic_baseline_amp_stories_24"/>
+
+    <item
         android:id="@+id/menuMovie"
         android:enabled="true"
         android:title="Event"
         android:icon="@drawable/ic_baseline_local_movies_24"/>
-
     <item
-        android:id="@+id/menuRiwayat"
+        android:id="@+id/tiketMovie"
         android:enabled="true"
-        android:title="@string/riwayat"
-        android:icon="@drawable/ic_baseline_history_24"/>
+        android:title="Tiket Event"
+        android:icon="@drawable/ic_baseline_amp_stories_24"/>
 
     <item
         android:id="@+id/menuProfile"

@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
         textUsername = findViewById(R.id.inputLoginUsername);
         textPassword = findViewById(R.id.inputLoginPassword);
+        btnLogin = findViewById(R.id.btnLogin);
 
         TextView textLink = findViewById(R.id.textLink);
         textLink.setOnClickListener(new View.OnClickListener() {

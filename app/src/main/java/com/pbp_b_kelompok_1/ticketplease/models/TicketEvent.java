@@ -1,7 +1,6 @@
 package com.pbp_b_kelompok_1.ticketplease.models;
 
 public class TicketEvent {
-    private int kodeTiket;
     private String namaEvent;
     private String namaPemesan;
     private String section;
@@ -12,8 +11,7 @@ public class TicketEvent {
     private String alamatEvent;
     private Double harga;
 
-    public TicketEvent(int kodeTiket, String namaEvent, String namaPemesan, String section, String seatNumber, String tanggalEvent, String waktuEvent, String venueEvent, String alamatEvent, Double harga) {
-        this.kodeTiket = kodeTiket;
+    public TicketEvent(String namaEvent, String namaPemesan, String section, String seatNumber, String tanggalEvent, String waktuEvent, String venueEvent, String alamatEvent, Double harga) {
         this.namaEvent = namaEvent;
         this.namaPemesan = namaPemesan;
         this.section = section;
@@ -23,14 +21,6 @@ public class TicketEvent {
         this.venueEvent = venueEvent;
         this.alamatEvent = alamatEvent;
         this.harga = harga;
-    }
-
-    public int getKodeTiket() {
-        return kodeTiket;
-    }
-
-    public void setKodeTiket(int kodeTiket) {
-        this.kodeTiket = kodeTiket;
     }
 
     public String getNamaEvent() {

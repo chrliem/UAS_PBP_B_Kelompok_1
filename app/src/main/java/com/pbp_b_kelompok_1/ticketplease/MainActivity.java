@@ -26,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.menuEvent) {
                 changeFragment(new FragmentEvent());
-            } else if(item.getItemId() == R.id.menuMovie){
+            } else if(item.getItemId() == R.id.tiketEvent){
+                changeFragment(new FragmentTiketEvent());
+            } else if (item.getItemId() == R.id.menuMovie) {
                 changeFragment(new FragmentMovie());
-            } else if (item.getItemId() == R.id.menuRiwayat) {
-                changeFragment(new FragmentRiwayat());
-            } else if (item.getItemId() == R.id.menuProfile) {
+            } else if (item.getItemId() == R.id.tiketMovie) {
                 changeFragment(new FragmentProfile());
+            } else if (item.getItemId() == R.id.menuProfile) {
+                changeFragment(new FragmentTiketMovie());
             }
             return true;
         }

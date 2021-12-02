@@ -2,6 +2,8 @@ package com.pbp_b_kelompok_1.ticketplease.models;
 
 import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
+
 import com.bumptech.glide.Glide;
 
 public class Event {
@@ -69,7 +71,7 @@ public class Event {
         this.hargaEvent = hargaEvent;
     }
 
-    //@BindingAdapter("android:loadImage")
+    @BindingAdapter("android:loadImage")
     public static void loadImage(ImageView imageView, String imgURL){
         Glide.with(imageView)
                 .load(imgURL)
