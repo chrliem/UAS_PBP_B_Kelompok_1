@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        mUser.getUsername(),
 //                        mUser.getPassword()
 //                );
+
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
                 finish();
