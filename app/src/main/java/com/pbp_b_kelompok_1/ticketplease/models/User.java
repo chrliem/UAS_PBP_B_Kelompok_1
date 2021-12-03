@@ -6,7 +6,6 @@ import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
-    private int idUser;
     @SerializedName("name")
     private String fullName;
     private String email;
@@ -14,21 +13,13 @@ public class User {
     private String password;
 
 
-    public User(int idUser, String fullName, String email, String username, String password) {
-        this.idUser = idUser;
+    public User(String fullName, String email, String username, String password) {
         this.fullName = fullName;
         this.email = email;
         this.username = username;
         this.password = password;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 
     public String getFullName() {
         return fullName;

@@ -1,5 +1,7 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
+import static com.android.volley.Request.Method.POST;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,8 +17,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
+import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,67 +76,62 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    register(textNama.getEditText().getText().toString(),
-                            textEmail.getEditText().getText().toString().trim(),
-                            textUsername.getEditText().getText().toString().trim(),
-                            textPassword.getEditText().getText().toString().trim());
+                    register();
                     Toast.makeText(RegisterActivity.this, "Berhasil Register Akun !", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    public void register(String nama, String email, String username, String password){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UserApi.REGISTER_URL, new Response.Listener<String>() {
+    public void register(){
+        User user = new User(
+                textNama.getEditText().getText().toString(),
+                textEmail.getEditText().getText().toString(),
+                textUsername.getEditText().getText().toString(),
+                textPassword.getEditText().getText().toString()
+        );
+
+        StringRequest stringRequest = new StringRequest(POST, UserApi.REGISTER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Gson gson = new Gson();
+                UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+
+                Toast.makeText(RegisterActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                finish();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
                 try{
-                    JSONObject object = new JSONObject(response);
-                    if(!object.getBoolean("error")){
-                        Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                        JSONObject userObject = object.getJSONObject("user");
-                                User user = new User(
-                                        userObject.getInt("id"),
-                                        userObject.getString("name"),
-                                        userObject.getString("email"),
-                                        userObject.getString("username"),
-                                        userObject.getString("password")
-                                );
+                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    JSONObject errors = new JSONObject(responseBody);
 
-                                finish();
-                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    }else{
-                        Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-
-                    }
-                }catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        try {
-                             String responseBody = new String(error.networkResponse.data,
-                             StandardCharsets.UTF_8);
-                             JSONObject errors = new JSONObject(responseBody);
-                             Toast.makeText(RegisterActivity.this,
-                             errors.getString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                             Toast.makeText(RegisterActivity.this, e.getMessage(),
-                             Toast.LENGTH_SHORT).show();
-                             }
-                    }
-                }){
+        }){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("username", nama);
-                params.put("email", email);
-                params.put("password", username);
-                params.put("gender", password);
-                return params;
+            public Map<String, String> getHeaders() throws AuthFailureError{
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                return headers;
+            }
+            @Override
+            public byte[] getBody() throws AuthFailureError{
+                Gson gson = new Gson();
+                String requestBody = gson.toJson(user);
+
+                return requestBody.getBytes(StandardCharsets.UTF_8);
+            }
+
+            @Override
+            public String getBodyContentType(){
+                return "application/json";
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
