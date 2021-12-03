@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         final String username = textUsername.getEditText().getText().toString().trim();
         final String password = textPassword.getEditText().getText().toString().trim();
-        User user = new User(""," " , username, password);
+        User user = new User("","" , username, password);
         StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
