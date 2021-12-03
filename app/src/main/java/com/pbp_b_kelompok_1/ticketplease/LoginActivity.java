@@ -86,13 +86,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
-                User mUser = userResponse.getUserList().get(0);
-                User user = new User(
-                        mUser.getFullName(),
-                        mUser.getEmail(),
-                        mUser.getUsername(),
-                        mUser.getPassword()
-                );
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -114,22 +107,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
+                headers.put("username",username);
+                headers.put("password",password);
                 return headers;
             }
-            @Override
-            public byte[] getBody() throws AuthFailureError{
-                Gson gson = new Gson();
+//            @Override
+//            public byte[] getBody() throws AuthFailureError{
+//                Gson gson = new Gson();
 //                String requestBody = gson.toJson(apa yg seharuse disini);
 
 //                return requestBody.getBytes(StandardCharsets.UTF_8);
-                return null;
-            }
+//                return null;
+//            }
 
-            @Override
-            public String getBodyContentType(){
-                return "application/json";
-            }
+//            @Override
+//            public String getBodyContentType(){
+//                return "application/json";
+//            }
 
         };
 
