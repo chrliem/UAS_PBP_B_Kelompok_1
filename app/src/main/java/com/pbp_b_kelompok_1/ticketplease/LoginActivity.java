@@ -71,29 +71,31 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } else {
                     login();
-                    Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(LoginActivity.this, textUsername.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, textPassword.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
     public void login() {
-        final String username = textUsername.getEditText().getText().toString();
-        final String password = textPassword.getEditText().getText().toString();
-
+        final String username = textUsername.getEditText().getText().toString().trim();
+        final String password = textPassword.getEditText().getText().toString().trim();
+        User user = new User(""," " , username, password);
         StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
-                User mUser = userResponse.getUserList().get(0);
-                User user = new User(
-                        mUser.getFullName(),
-                        mUser.getEmail(),
-                        mUser.getUsername(),
-                        mUser.getPassword()
-                );
+//                User mUser = userResponse.getUserList().get(0);
+//                User user = new User(
+//                        mUser.getFullName(),
+//                        mUser.getEmail(),
+//                        mUser.getUsername(),
+//                        mUser.getPassword()
+//                );
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
                 finish();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -120,12 +122,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public byte[] getBody() throws AuthFailureError{
                 Gson gson = new Gson();
-//                String requestBody = gson.toJson(apa yg seharuse disini);
-
-//                return requestBody.getBytes(StandardCharsets.UTF_8);
-                return null;
+                String requestBody = gson.toJson(user);
+                return requestBody.getBytes(StandardCharsets.UTF_8);
+//                return null;
             }
-
+//            @Override
+//            protected Map<String, String> getParams() {
+//                Map<String,String> params = new HashMap<>();
+//                params.put("username",username);
+//                params.put("password",password);
+//                return params;
+//            }
             @Override
             public String getBodyContentType(){
                 return "application/json";
