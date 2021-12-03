@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -87,14 +88,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
-//                User mUser = userResponse.getUserList().get(0);
-//                User user = new User(
-//                        mUser.getFullName(),
-//                        mUser.getEmail(),
-//                        mUser.getUsername(),
-//                        mUser.getPassword()
-//                );
-
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
                 finish();
@@ -107,8 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                 try{
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-
                     Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
                 }catch (Exception e){
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -125,15 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 String requestBody = gson.toJson(user);
                 return requestBody.getBytes(StandardCharsets.UTF_8);
-//                return null;
             }
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String,String> params = new HashMap<>();
-//                params.put("username",username);
-//                params.put("password",password);
-//                return params;
-//            }
+
             @Override
             public String getBodyContentType(){
                 return "application/json";
