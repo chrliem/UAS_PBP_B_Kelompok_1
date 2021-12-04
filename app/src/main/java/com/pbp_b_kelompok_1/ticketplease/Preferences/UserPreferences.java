@@ -18,7 +18,6 @@ public class UserPreferences {
     public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
 
-
     public UserPreferences(Context context){
         this.context = context;
 

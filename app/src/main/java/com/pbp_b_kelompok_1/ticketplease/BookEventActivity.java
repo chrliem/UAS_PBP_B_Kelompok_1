@@ -30,6 +30,7 @@ import com.pbp_b_kelompok_1.ticketplease.models.Event;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
+import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
 import org.json.JSONObject;
 
@@ -49,6 +50,7 @@ public class BookEventActivity extends AppCompatActivity {
     private User user;
     private LinearLayout layoutLoading;
     private UserPreferences userPreferences;
+    private UserResponse userResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +135,7 @@ public class BookEventActivity extends AppCompatActivity {
                     JSONObject errors = new JSONObject(responseBody);
 
                     Toast.makeText(BookEventActivity.this, errors.getString("message"),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(BookEventActivity.this, errors.getString(userPreferences.getUserLogin().getAccessToken()),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     Toast.makeText(BookEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -142,7 +145,8 @@ public class BookEventActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  //nanti ini token ambil dari userPreference
+//                headers.get(userPreferences.getUserLogin().getAccessToken());
+                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override

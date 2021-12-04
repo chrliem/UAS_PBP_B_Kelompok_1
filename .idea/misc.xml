@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_book_event.xml" value="0.1796875" />
+        <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />
+        <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_event.xml" value="0.15670289855072464" />
+        <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_tiket_event.xml" value="0.15670289855072464" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_event.xml" value="0.16" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_login.xml" value="0.2346014492753623" />
