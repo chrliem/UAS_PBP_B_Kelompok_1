@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private TextInputLayout textUsername, textPassword;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 } else {
                     login();
-//                    Toast.makeText(LoginActivity.this, textUsername.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(LoginActivity.this, textPassword.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,7 +81,12 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         final String username = textUsername.getEditText().getText().toString().trim();
         final String password = textPassword.getEditText().getText().toString().trim();
-        User user = new User("","" , username, password);
+//        Log.d("username", username);
+//        Log.d("password", password);
+//        Toast.makeText(LoginActivity.this, username, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
+//        String ACCESS_TOKEN = null;
+        User user = new User(null,null,username,password);
         StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -90,9 +95,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
-                finish();
+                Toast.makeText(LoginActivity.this, userResponse.getAccess_token(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -101,26 +107,25 @@ public class LoginActivity extends AppCompatActivity {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
                     Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
+                    Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
                 }catch (Exception e){
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("username",username);
-                params.put("password",password);
-                params.put("Authorization","Bearer"+" "+"tokenString");
-                return params;
-            }
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError{
+//                Map<String, String> params = new HashMap<String, String>();
+//
+//                params.put("username",username);
+//                params.put("password",password);
+//                return params;
+//            }
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-//                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);
+                headers.put("Accept", "application/json");
+//                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override
