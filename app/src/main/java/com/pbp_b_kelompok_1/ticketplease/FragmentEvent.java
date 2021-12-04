@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.adapters.EventAdapter;
 import com.pbp_b_kelompok_1.ticketplease.databinding.FragmentEventBinding;
 import com.pbp_b_kelompok_1.ticketplease.models.DummyEvent;
@@ -27,7 +28,7 @@ public class FragmentEvent extends Fragment {
 
     private TextView tvUsername;
     private User user;
-//    private UserPreferences userPreferences;
+    private UserPreferences userPreferences;
 
     ArrayList<Event> listEvent;
     FragmentEventBinding binding;
@@ -49,8 +50,8 @@ public class FragmentEvent extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         tvUsername = view.findViewById(R.id.tvUsername);
-//        userPreferences = new UserPreferences(this.getContext());
-//        user = userPreferences.getUserLogin();
+        userPreferences = new UserPreferences(this.getContext());
+        user = userPreferences.getUserLogin();
 
         tvUsername.setText(user.getUsername());
         listEvent = new DummyEvent().dataEvent;

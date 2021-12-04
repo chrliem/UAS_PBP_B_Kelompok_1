@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
@@ -33,11 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private TextInputLayout textNama, textEmail, textUsername, textPassword;
     private Button btnRegister;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        userPreferences = new UserPreferences(RegisterActivity.this);
 
         textNama = findViewById(R.id.inputRegisName);
         textEmail = findViewById(R.id.inputRegisEmail);
@@ -85,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void register(){
         User user = new User(
+                null,
                 textNama.getEditText().getText().toString(),
                 textEmail.getEditText().getText().toString(),
                 textUsername.getEditText().getText().toString(),

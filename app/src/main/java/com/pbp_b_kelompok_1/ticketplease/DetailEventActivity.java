@@ -198,7 +198,7 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
             this.originPosition = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
                     locationComponent.getLastKnownLocation().getLatitude());
         } else {
-            permissionsManager = new PermissionsManager(permissionsManager.getListener());
+            permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
         }
     }

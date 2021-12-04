@@ -1,6 +1,7 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
 import static com.android.volley.Request.Method.POST;
+import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
@@ -39,15 +41,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private TextInputLayout textUsername, textPassword;
+    private UserPreferences userPreferences;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        userPreferences = new UserPreferences(LoginActivity.this);
 
         textUsername = findViewById(R.id.inputLoginUsername);
         textPassword = findViewById(R.id.inputLoginPassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        checkLogin();
 
         TextView textLink = findViewById(R.id.textLink);
         textLink.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 //        Toast.makeText(LoginActivity.this, username, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
 //        String ACCESS_TOKEN = null;
-        User user = new User(null,null,username,password);
+        User user = new User(null, null,null,username,password);
         StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -95,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
+                userPreferences.setLogin(user.getAccessToken(), user.getFullName(), user.getEmail(), user.getUsername(), user.getPassword());
                 Toast.makeText(LoginActivity.this, userResponse.getAccess_token(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -125,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-//                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  //nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override
@@ -144,4 +151,12 @@ public class LoginActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+    private void checkLogin(){
+        if(userPreferences.checkLogin()){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
 }

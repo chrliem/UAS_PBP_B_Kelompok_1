@@ -1,5 +1,8 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
+import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
+
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,10 +22,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.adapters.TicketEventAdapter;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
+import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
 import org.json.JSONObject;
 
@@ -39,6 +44,8 @@ public class FragmentTiketEvent extends Fragment {
    private TicketEventAdapter ticketEventAdapter;
    private ArrayList<TicketEvent> ticketEventList;
    private RequestQueue requestQueue;
+   private UserPreferences userPreferences;
+   private UserResponse userResponse;
 
     public FragmentTiketEvent() {
         // Required empty public constructor
@@ -58,7 +65,8 @@ public class FragmentTiketEvent extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tiket_event,container,false);
         rvTiketEvent = view.findViewById(R.id.rvTiketEvent);
-        rvTiketEvent.setLayoutManager(new LinearLayoutManager(getContext()));
+        userPreferences = new UserPreferences(this.getContext());
+        rvTiketEvent.setLayoutManager(new LinearLayoutManager(this.getContext()));
         rvTiketEvent.setAdapter(ticketEventAdapter);
         return view;
 //        return inflater.inflate(R.layout.fragment_tiket_event, container, false);
@@ -92,10 +100,11 @@ public class FragmentTiketEvent extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+ userResponse.getAccess_token());
                 return headers;
             }
         };
-        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(this.getContext()).addToRequestQueue(stringRequest);
     }
 
 }

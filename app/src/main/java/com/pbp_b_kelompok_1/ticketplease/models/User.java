@@ -6,6 +6,8 @@ import com.bumptech.glide.Glide;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("access_token")
+    private String accessToken;
     @SerializedName("name")
     private String fullName;
     private String email;
@@ -13,13 +15,21 @@ public class User {
     private String password;
 
 
-    public User(String fullName, String email, String username, String password) {
+    public User(String accessToken, String fullName, String email, String username, String password) {
+        this.accessToken = accessToken;
         this.fullName = fullName;
         this.email = email;
         this.username = username;
         this.password = password;
     }
 
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 
     public String getFullName() {
         return fullName;

@@ -1,6 +1,7 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
 import static com.android.volley.Request.Method.POST;
+import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.databinding.ActivityBookEventBinding;
 import com.pbp_b_kelompok_1.ticketplease.models.Event;
@@ -46,7 +48,7 @@ public class BookEventActivity extends AppCompatActivity {
     private Button btnPesan;
     private User user;
     private LinearLayout layoutLoading;
-    private RequestQueue requestQueue;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,9 @@ public class BookEventActivity extends AppCompatActivity {
         spinnerSection = findViewById(R.id.spinnerSection);
         spinnerSeat = findViewById(R.id.spinnerSeatNumber);
         spinnerTime = findViewById(R.id.spinnerTime);
+
+        userPreferences = new UserPreferences(this);
+        user = userPreferences.getUserLogin();
 
         btnPesan = findViewById(R.id.btnPesan);
         btnPesan.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +142,7 @@ public class BookEventActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  //nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override
@@ -151,6 +157,6 @@ public class BookEventActivity extends AppCompatActivity {
             }
 
         };
-        requestQueue.add(stringRequest);
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 }
