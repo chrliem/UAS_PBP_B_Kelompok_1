@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private TextInputLayout textUsername, textPassword;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(LoginActivity.this, "Berhasil Login!", Toast.LENGTH_LONG).show();
                 finish();
@@ -108,9 +108,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         }){
             @Override
+            protected Map<String, String> getParams() throws AuthFailureError{
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("username",username);
+                params.put("password",password);
+                params.put("Authorization","Bearer"+" "+"tokenString");
+                return params;
+            }
+            @Override
             public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json");
+//                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);
                 return headers;
             }
             @Override
