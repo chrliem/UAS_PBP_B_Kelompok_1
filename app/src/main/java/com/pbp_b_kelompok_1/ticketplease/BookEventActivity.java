@@ -70,7 +70,6 @@ public class BookEventActivity extends AppCompatActivity {
 
         userPreferences = new UserPreferences(this);
         user = userPreferences.getUserLogin();
-
         btnPesan = findViewById(R.id.btnPesan);
         btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +92,9 @@ public class BookEventActivity extends AppCompatActivity {
 
     private void addTicketEvent(){
         final String namaEvent = event.getNamaEvent();
+//        final String namaPemesan = userResponse.getUser().getFullName();
+//        final String namaPemesan = userPreferences.getUserLogin().getFullName();
+//        final String namaPemesan = "Christian Woi";
         final String namaPemesan = user.getFullName();
         final String section = spinnerSection.getSelectedItem().toString();
         final String seatNumber = spinnerSeat.getSelectedItem().toString();

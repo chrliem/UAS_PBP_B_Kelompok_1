@@ -27,6 +27,7 @@ import com.pbp_b_kelompok_1.ticketplease.adapters.TicketEventAdapter;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
+import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
 import org.json.JSONObject;
@@ -43,9 +44,9 @@ public class FragmentTiketEvent extends Fragment {
    private RecyclerView rvTiketEvent;
    private TicketEventAdapter ticketEventAdapter;
    private ArrayList<TicketEvent> ticketEventList;
-   private RequestQueue requestQueue;
    private UserPreferences userPreferences;
    private UserResponse userResponse;
+   private User user;
 
     public FragmentTiketEvent() {
         // Required empty public constructor
@@ -55,7 +56,7 @@ public class FragmentTiketEvent extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ticketEventList = new ArrayList<>();
-        ticketEventAdapter = new TicketEventAdapter(getContext(),ticketEventList);
+        ticketEventAdapter = new TicketEventAdapter(getContext(),ticketEventList,userPreferences);
         getAllTicketEvent();
 
     }
@@ -66,6 +67,7 @@ public class FragmentTiketEvent extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tiket_event,container,false);
         rvTiketEvent = view.findViewById(R.id.rvTiketEvent);
         userPreferences = new UserPreferences(this.getContext());
+        user = userPreferences.getUserLogin();
         rvTiketEvent.setLayoutManager(new LinearLayoutManager(this.getContext()));
         rvTiketEvent.setAdapter(ticketEventAdapter);
         return view;
@@ -73,7 +75,7 @@ public class FragmentTiketEvent extends Fragment {
     }
 
     public void getAllTicketEvent(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, TicketEventApi.ADD_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, TicketEventApi.GET_ALL_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
@@ -100,11 +102,12 @@ public class FragmentTiketEvent extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
+//                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
                 headers.put("Authorization", "Bearer "+ userResponse.getAccess_token());
                 return headers;
             }
         };
-        VolleySingleton.getInstance(this.getContext()).addToRequestQueue(stringRequest);
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 
 }

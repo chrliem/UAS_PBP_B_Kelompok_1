@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.FragmentDetailTicketEvent;
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.R;
 import com.pbp_b_kelompok_1.ticketplease.VolleySingleton;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
@@ -42,11 +43,14 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     List<TicketEvent> ticketEventList;
     private Context mContext;
     private LayoutInflater layoutInflater;
+    private UserPreferences userPreferences;
 
-    public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList){
+    public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList, UserPreferences userPreferences){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.ticketEventList = ticketEventList;
+        this.userPreferences = userPreferences;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -61,7 +65,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketEventAdapter.viewHolder holder, int position) {
         TicketEvent ticketEvent = ticketEventList.get(position);
-        holder.kodeBooking.setText(holder.getAdapterPosition());
+        holder.kodeBooking.setText(position);
         holder.tanggal.setText(ticketEvent.getTanggalEvent());
         holder.namaEvent.setText(ticketEvent.getNamaEvent());
         holder.venueEvent.setText(ticketEvent.getVenueEvent());
@@ -90,7 +94,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
 //                Mengeset Tampilan TextView
                 tvNamaEvent.setText(ticketEvent.getNamaEvent());
                 tvPemilikTiket.setText(ticketEvent.getNamaPemesan());
-                tvKodeBooking.setText(holder.getAdapterPosition());
+                tvKodeBooking.setText("");
                 tvSection.setText(ticketEvent.getSection());
                 tvTanggalWaktu.setText(ticketEvent.getTanggalEvent() + "\n" +ticketEvent.getTanggalEvent());
                 tvVenue.setText(ticketEvent.getVenueEvent());
@@ -151,6 +155,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
         };
