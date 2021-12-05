@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "374457160684",
+    "project_id": "ticketplease-3ac36",
+    "storage_bucket": "ticketplease-3ac36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374457160684:android:34ce312822015e6c1ea6c9",
+        "android_client_info": {
+          "package_name": "com.pbp_b_kelompok_1.ticketplease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "374457160684-lkmvcivl44tt7m3ag73qgf1e0ef93m19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZKNfhVGbhewepUO6CooNxB-DayrZpXus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "374457160684-lkmvcivl44tt7m3ag73qgf1e0ef93m19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

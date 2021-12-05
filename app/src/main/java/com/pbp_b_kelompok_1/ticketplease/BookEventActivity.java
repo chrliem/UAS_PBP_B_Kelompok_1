@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
+import com.pbp_b_kelompok_1.ticketplease.adapters.TicketEventAdapter;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.databinding.ActivityBookEventBinding;
 import com.pbp_b_kelompok_1.ticketplease.models.Event;
@@ -45,6 +46,7 @@ import java.util.Map;
 public class BookEventActivity extends AppCompatActivity {
 
     private Event event;
+    private TicketEventAdapter ticketEventAdapter;
     private ActivityBookEventBinding binding;
     private AutoCompleteTextView ddSection, ddSeatNumber, ddTime;
     private ImageButton btnBack;
@@ -243,6 +245,7 @@ public class BookEventActivity extends AppCompatActivity {
 
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+
     }
 
     private void updateTicketEvent(long id){
