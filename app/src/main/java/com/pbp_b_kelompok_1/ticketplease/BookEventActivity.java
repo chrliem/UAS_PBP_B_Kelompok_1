@@ -141,9 +141,9 @@ public class BookEventActivity extends AppCompatActivity {
 
                     tvEventName.setText(ticketEvent.getNamaEvent());
                     tvHarga.setText(String.valueOf(ticketEvent.getHarga()));
-                    ddSection.setText(ticketEvent.getSection());
-                    ddSeatNumber.setText(ticketEvent.getSeatNumber());
-                    ddTime.setText(ticketEvent.getWaktuEvent());
+                    ddSection.setText(ticketEvent.getSection(),false);
+                    ddSeatNumber.setText(ticketEvent.getSeatNumber(),false);
+                    ddTime.setText(ticketEvent.getWaktuEvent(),false);
                     tvDate.setText(ticketEvent.getTanggalEvent());
                     tvPrice.setText(String.valueOf(ticketEvent.getHarga()));
                     Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -246,6 +246,7 @@ public class BookEventActivity extends AppCompatActivity {
     }
 
     private void updateTicketEvent(long id){
+
         TicketEvent ticketEvent = new TicketEvent(
                 null,
                 null,
