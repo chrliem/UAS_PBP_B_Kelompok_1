@@ -1,58 +1,37 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentProfile#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
+import com.pbp_b_kelompok_1.ticketplease.models.User;
+
+
 public class FragmentProfile extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ImageButton btnSetting;
+    private Button btnLogout;
+    private TextView textNama, textUsername, textEmail, textAlamat;
+    private User user;
+    private UserPreferences userPreferences;
 
     public FragmentProfile() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentProfile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentProfile newInstance(String param1, String param2) {
-        FragmentProfile fragment = new FragmentProfile();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -61,4 +40,77 @@ public class FragmentProfile extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        textNama = view.findViewById(R.id.tvNama);
+        textUsername = view.findViewById(R.id.tvUsername);
+        textEmail = view.findViewById(R.id.tvEmail);
+        textAlamat = view.findViewById(R.id.tvAlamat);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        btnSetting = view.findViewById(R.id.btnSetting);
+
+        userPreferences = new UserPreferences(this.getContext());
+        user = userPreferences.getUserLogin();
+
+        textNama.setText(user.getFullName());
+        textUsername.setText(user.getUsername());
+        textEmail.setText(user.getEmail());
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Fragment fragment = new FragmentProfileEdit();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.layout_fragment, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Logout")
+                        .setMessage("Are You Sure?")
+                        .setNeutralButton("CLOSE", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                userPreferences.logout();
+                                Toast.makeText(getContext(), "Berhasil Logout", Toast.LENGTH_SHORT).show();
+                                checkLogin();
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private void checkLogin() {
+//        Fungsi ini akan mengecek jika user login,
+//        akan memunculkan toast jika tidak redirect ke login activity
+        if (!userPreferences.checkLogin()) {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+        } else {
+            Toast.makeText(getContext(), "Heyy Kamu Sudah Login !!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+//    public void changeFragment(Fragment fragment) {
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.layout_fragment, fragment)
+//                .commit();
+//    }
 }

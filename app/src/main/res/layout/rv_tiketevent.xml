@@ -17,7 +17,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_margin="5dp"
         android:id="@+id/relativeLayout">
 
@@ -94,17 +94,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@id/ivLogoEvent"
-            android:layout_marginTop="4dp">
+            android:layout_marginTop="35dp">
            <ImageButton
                android:id="@+id/btnEdit"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:src="@drawable/ic_round_edit_24" />
+               android:src="@drawable/ic_round_edit_24"
+               android:backgroundTint="@color/backgroundColor"/>
             <ImageButton
                 android:id="@+id/btnDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_cancel_24"/>
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:backgroundTint="@color/backgroundColor"/>
         </LinearLayout>
     </RelativeLayout>
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.pbp_b_kelompok_1.ticketplease.VolleySingleton;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
+import com.pbp_b_kelompok_1.ticketplease.models.User;
 
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -44,20 +46,22 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     private Context mContext;
     private LayoutInflater layoutInflater;
     private UserPreferences userPreferences;
+    private User user;
 
     public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList, UserPreferences userPreferences){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.ticketEventList = ticketEventList;
         this.userPreferences = userPreferences;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public TicketEventAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.rv_tiketevent, parent,false);
-        final viewHolder holder= new viewHolder(view);
+//        userPreferences = new UserPreferences(view.getContext());
+//        user = userPreferences.getUserLogin();
+        final viewHolder holder = new viewHolder(view);
 
         return holder;
     }
@@ -65,7 +69,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketEventAdapter.viewHolder holder, int position) {
         TicketEvent ticketEvent = ticketEventList.get(position);
-        holder.kodeBooking.setText(position);
+        holder.kodeBooking.setText(String.valueOf(position));
         holder.tanggal.setText(ticketEvent.getTanggalEvent());
         holder.namaEvent.setText(ticketEvent.getNamaEvent());
         holder.venueEvent.setText(ticketEvent.getVenueEvent());
@@ -117,6 +121,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
 
@@ -133,7 +138,6 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
-
                 TicketEvent ticketEvent = ticketEventResponse.getTicketEventList().get(0);
                 Toast.makeText(mContext, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -143,11 +147,9 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                 try{
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(mContext, errors.getString("message"),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(mContext, e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -178,11 +180,12 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
 
     public void setTicketEventList(List<TicketEvent> ticketEventList){
         this.ticketEventList = ticketEventList;
+        notifyDataSetChanged();
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
         protected TextView kodeBooking, tanggal, namaEvent, venueEvent, namaPemesan;
-        protected Button btnEdit, btnDelete;
+        protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
         public viewHolder(View itemView){
             super(itemView);
@@ -191,8 +194,9 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             this.namaEvent = itemView.findViewById(R.id.tvNamaEventRiwayat);
             this.venueEvent = itemView.findViewById(R.id.tvVenueRiwayat);
             this.namaPemesan = itemView.findViewById(R.id.tvNamaPemilik);
-            this.btnEdit = itemView.findViewById(R.id.btnEdit);
-            this.btnDelete = itemView.findViewById(R.id.btnDelete);
+
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
             this.cardView = itemView.findViewById(R.id.card_view);
         }
     }

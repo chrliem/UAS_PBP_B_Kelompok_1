@@ -8,8 +8,9 @@ public class TicketEventResponse {
 
     private String message;
 
-    @SerializedName("ticketevent")
+    @SerializedName("data")
     private List<TicketEvent> ticketEventList;
+
 
     public String getMessage(){
         return message;
@@ -26,4 +27,5 @@ public class TicketEventResponse {
     public void setTicketEventList(List<TicketEvent> ticketEventList) {
         this.ticketEventList = ticketEventList;
     }
+
 }

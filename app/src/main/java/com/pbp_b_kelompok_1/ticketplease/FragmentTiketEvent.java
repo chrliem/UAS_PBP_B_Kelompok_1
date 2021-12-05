@@ -47,6 +47,7 @@ public class FragmentTiketEvent extends Fragment {
    private UserPreferences userPreferences;
    private UserResponse userResponse;
    private User user;
+   private TicketEvent ticketEvent;
 
     public FragmentTiketEvent() {
         // Required empty public constructor
@@ -55,23 +56,25 @@ public class FragmentTiketEvent extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ticketEventList = new ArrayList<>();
-        ticketEventAdapter = new TicketEventAdapter(getContext(),ticketEventList,userPreferences);
-        getAllTicketEvent();
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tiket_event,container,false);
         rvTiketEvent = view.findViewById(R.id.rvTiketEvent);
+
         userPreferences = new UserPreferences(this.getContext());
         user = userPreferences.getUserLogin();
+
         rvTiketEvent.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        ticketEventList = new ArrayList<>();
+        ticketEventAdapter = new TicketEventAdapter(getContext(),ticketEventList,userPreferences);
         rvTiketEvent.setAdapter(ticketEventAdapter);
+
+        getAllTicketEvent();
         return view;
-//        return inflater.inflate(R.layout.fragment_tiket_event, container, false);
     }
 
     public void getAllTicketEvent(){
@@ -80,18 +83,16 @@ public class FragmentTiketEvent extends Fragment {
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
-
                 ticketEventAdapter.setTicketEventList(ticketEventResponse.getTicketEventList());
-
                 Toast.makeText(getContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    String responseBody = new String(error.networkResponse.data,
-                            StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
+
                     Toast.makeText(getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -102,8 +103,7 @@ public class FragmentTiketEvent extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-//                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
-                headers.put("Authorization", "Bearer "+ userResponse.getAccess_token());
+                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
                 return headers;
             }
         };

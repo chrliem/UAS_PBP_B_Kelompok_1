@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.tiketMovie) {
                 changeFragment(new FragmentProfile());
             } else if (item.getItemId() == R.id.menuProfile) {
-                changeFragment(new FragmentTiketMovie());
+                changeFragment(new FragmentProfile());
             }
             return true;
         }
