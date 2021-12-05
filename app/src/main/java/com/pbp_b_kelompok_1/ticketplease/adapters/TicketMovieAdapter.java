@@ -62,7 +62,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
     public TicketMovieAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.rv_tiketmovie, parent,false);
         
-        final TicketMovieAdapter.viewHolder holder = new TicketMovieAdapter.viewHolder(view);
+        final viewHolder holder = new viewHolder(view);
 
         return holder;
     }
@@ -70,7 +70,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketMovieAdapter.viewHolder holder, int position) {
         TicketMovie ticketMovie = ticketMovieList.get(position);
-        holder.kodeTiket.setText(String.valueOf(ticketMovie.getKodeTiket()));
+        holder.kodeTiketMovie.setText(String.valueOf(ticketMovie.getKodeTiketMovie()));
         holder.tanggal.setText(ticketMovie.getTanggalMovie());
         holder.waktu.setText(ticketMovie.getWaktuMovie());
         holder.namaMovie.setText(ticketMovie.getNamaMovie());
@@ -83,24 +83,26 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
                 View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.fragment_detail_ticket_movie, null);
 
 //                Deklarasi Atribut dari Fragment
-                TextView tvNamaMovie, tvPemilikTiket, tvKodeTiket, tvTanggal, tvWaktu, tvSeat;
+                TextView tvNamaMovie, tvPemilikTiket, tvKodeTiket, tvTanggal, tvWaktu, tvSeat, tvSinopsis;
                 MaterialButton btnBack;
 
 //                Mendapatkan Id pada activity
                 tvNamaMovie = newLayout.findViewById(R.id.tvNamaTiketMovie);
                 tvPemilikTiket = newLayout.findViewById(R.id.tvNamaPemilikTiketMovie);
-                tvKodeTiket = newLayout.findViewById(R.id.tvKodeTiket);
+                tvKodeTiket = newLayout.findViewById(R.id.tvKodeTiketMovie);
                 tvTanggal = newLayout.findViewById(R.id.tvTanggalTiketMovie);
                 tvWaktu = newLayout.findViewById(R.id.tvWaktuTiketMovie);
                 tvSeat = newLayout.findViewById(R.id.tvSeatNumberTiketMovie);
-                btnBack = newLayout.findViewById(R.id.btnBack);
+                tvSinopsis = newLayout.findViewById(R.id.tvSinopsisMovieDetail);
+                btnBack = newLayout.findViewById(R.id.btnBackMovieFrag);
 
 //                Mengeset Tampilan TextView
                 tvNamaMovie.setText(ticketMovie.getNamaMovie());
                 tvPemilikTiket.setText(ticketMovie.getNamaPemesan());
-                tvKodeTiket.setText(String.valueOf(ticketMovie.getKodeTiket()));
+                tvKodeTiket.setText(String.valueOf(ticketMovie.getKodeTiketMovie()));
                 tvTanggal.setText(ticketMovie.getTanggalMovie());
                 tvWaktu.setText(ticketMovie.getWaktuMovie());
+                tvSinopsis.setText(ticketMovie.getSinopsis());
                 tvSeat.setText(ticketMovie.getSeatNumber());
 
 //                menampilkan View builder dengan layout diolog
@@ -122,7 +124,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BookMovieActivity.class);
-                intent.putExtra("kodeTiket", ticketMovie.getKodeTiket());
+                intent.putExtra("kodeTiketMovie", ticketMovie.getKodeTiketMovie());
                 mContext.startActivity(intent);
             }
         });
@@ -138,7 +140,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
                         .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                deleteTicketMovie(ticketMovie.getKodeTiket());
+                                deleteTicketMovie(ticketMovie.getKodeTiketMovie());
                             }
                         })
                         .show();
@@ -189,12 +191,12 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
 
     public class viewHolder extends RecyclerView.ViewHolder{
 
-        protected TextView kodeTiket, tanggal, namaMovie, namaPemesan, waktu;
+        protected TextView kodeTiketMovie, tanggal, namaMovie, namaPemesan, waktu;
         protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
         public viewHolder(View itemView){
             super(itemView);
-            this.kodeTiket = itemView.findViewById(R.id.tvKodeTiket);
+            this.kodeTiketMovie = itemView.findViewById(R.id.tvKodeTiket);
             this.tanggal = itemView.findViewById(R.id.tvTanggalMovie);
             this.waktu = itemView.findViewById(R.id.tvWaktuMovie);
             this.namaMovie = itemView.findViewById(R.id.tvNamaMovieRiwayat);
@@ -202,7 +204,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
 
             btnEdit = itemView.findViewById(R.id.btnEditMovie);
             btnDelete = itemView.findViewById(R.id.btnDeleteMovie);
-            this.cardView = itemView.findViewById(R.id.card_view);
+            this.cardView = itemView.findViewById(R.id.card_viewMovie);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.pbp_b_kelompok_1.ticketplease.models;
 public class TicketMovie {
-    private int kodeTiketMovie;
+    private Long kodeTiketMovie;
     private String namaMovie;
     private String namaPemesan;
     private String seatNumber;
@@ -19,11 +19,11 @@ public class TicketMovie {
         this.harga = harga;
     }
 
-    public int getKodeTiket() {
+    public Long getKodeTiketMovie() {
         return kodeTiketMovie;
     }
 
-    public void setKodeTiket(int kodeTiketMovie) {
+    public void setKodeTiketMovie(Long kodeTiketMovie) {
         this.kodeTiketMovie = kodeTiketMovie;
     }
 

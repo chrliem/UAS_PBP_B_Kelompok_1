@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="115dp"
-                    android:text="@{String.valueOf(movie.sinopsis)}"
+                    android:text="@{movie.sinopsis}"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

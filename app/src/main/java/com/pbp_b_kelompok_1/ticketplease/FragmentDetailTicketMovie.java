@@ -18,7 +18,7 @@ public class FragmentDetailTicketMovie extends Fragment {
 
     private static final String bund_namaMovie = "namaMovie";
     private static final String bund_namaPemilik = "namaPemilik";
-    private static final String bund_kodeTiket = "kodeTiket";
+    private static final String bund_kodeTiketMovie = "kodeTiketMovie";
     private static final String bund_seatNumber = "seatNumber";
     private static final String bund_tanggal = "tanggal";
     private static final String bund_waktu = "waktu";
@@ -35,12 +35,12 @@ public class FragmentDetailTicketMovie extends Fragment {
         // Required empty public constructor
     }
 
-    public static FragmentDetailTicketMovie newInstance(int kodeTiket, String namaMovie,
+    public static FragmentDetailTicketMovie newInstance(Long kodeTiketMovie, String namaMovie,
                                                         String namaPemilik, String seatNumber,
                                                         String tanggal, String waktu, String sinopsis) {
         Bundle bundle = new Bundle();
         // Save data here
-        bundle.putInt(bund_kodeTiket, kodeTiket);
+        bundle.putLong(bund_kodeTiketMovie, kodeTiketMovie);
         bundle.putString(bund_namaMovie, namaMovie);
         bundle.putString(bund_namaPemilik, namaPemilik);
         bundle.putString(bund_seatNumber, seatNumber);
@@ -61,7 +61,7 @@ public class FragmentDetailTicketMovie extends Fragment {
     {
         View root = inflater.inflate(R.layout.fragment_detail_ticket_movie, container, false);
 
-        int kodeTiket = getArguments().getInt(bund_kodeTiket);
+        Long kodeTiketMovie = getArguments().getLong(bund_kodeTiketMovie);
         String namaMovie = getArguments().getString(bund_namaMovie);
         String namaPemilik = getArguments().getString(bund_namaPemilik);
         String seatNumber = getArguments().getString(bund_seatNumber);
@@ -77,7 +77,7 @@ public class FragmentDetailTicketMovie extends Fragment {
         tvWaktu = root.findViewById(R.id.tvWaktuTiketMovie);
         tvSinopsis = root.findViewById(R.id.tvSinopsisMovieDetail);
 
-        tvKodeTiket.setText(Integer.toString(kodeTiket));
+        tvKodeTiket.setText(Long.toString(kodeTiketMovie));
         tvNamaMovie.setText(namaMovie);
         tvNamaPemilik.setText(namaPemilik);
         tvSeatNumber.setText(seatNumber);

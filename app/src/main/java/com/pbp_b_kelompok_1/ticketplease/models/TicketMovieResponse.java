@@ -8,7 +8,7 @@ public class TicketMovieResponse {
 
     private String message;
 
-    @SerializedName("ticketmovie")
+    @SerializedName("data")
     private List<TicketMovie> ticketMovieList;
 
     public String getMessage() {

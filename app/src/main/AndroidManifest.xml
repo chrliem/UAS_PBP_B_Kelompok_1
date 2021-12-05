@@ -17,14 +17,17 @@
         android:theme="@style/Theme.TicketPlease"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DetailMovieActivity"
-            android:exported="false" />
-        <activity
             android:name=".BookEventActivity"
             android:exported="true" />
         <activity
             android:name=".DetailEventActivity"
             android:exported="true" />
+        <activity
+            android:name=".BookMovieActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetailMovieActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

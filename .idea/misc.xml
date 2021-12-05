@@ -4,11 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_book_event.xml" value="0.22447916666666667" />
-        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_book_movie.xml" value="0.3236994219653179" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_book_movie.xml" value="0.1" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_detail_event.xml" value="0.22447916666666667" />
-        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_detail_movie.xml" value="0.22447916666666667" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_detail_movie.xml" value="0.22" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_event.xml" value="0.1" />
-        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_movie.xml" value="0.2" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_movie.xml" value="0.33" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_event.xml" value="0.22447916666666667" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_movie.xml" value="0.22447916666666667" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_profile.xml" value="0.22447916666666667" />
@@ -18,7 +18,7 @@
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/list_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_event.xml" value="0.22447916666666667" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_movie.xml" value="0.22447916666666667" />
-        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketevent.xml" value="0.22447916666666667" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketevent.xml" value="0.1" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketmovie.xml" value="0.22447916666666667" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_event.xml" value="0.16" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />

@@ -81,9 +81,9 @@ public class BookMovieActivity extends AppCompatActivity {
         userPreferences = new UserPreferences(this);
         user = userPreferences.getUserLogin();
 
-        btnPesanMovie = findViewById(R.id.btnPesan);
+        btnPesanMovie = findViewById(R.id.btnPesanMovie);
 
-        long id = getIntent().getLongExtra("kodeTiket",-1);
+        long id = getIntent().getLongExtra("kodeTiketMovie",-1);
         Toast.makeText(BookMovieActivity.this, id + "", Toast.LENGTH_SHORT).show();
 
         if(id==-1){
@@ -106,7 +106,7 @@ public class BookMovieActivity extends AppCompatActivity {
             });
         }
 
-        btnBackMovie = findViewById(R.id.btnBack);
+        btnBackMovie = findViewById(R.id.btnBackMovie);
         btnBackMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,8 +125,8 @@ public class BookMovieActivity extends AppCompatActivity {
                 TicketMovie ticketMovie = ticketMovieResponse.getTicketMovieList().get(0);
                 TextView tvMovieName = findViewById(R.id.tvMovieNameOrder);
                 TextView tvHarga = findViewById(R.id.tvMoviePriceOrder);
-                TextView tvDate = findViewById(R.id.tvDate);
-                TextView tvPrice = findViewById(R.id.tvPrice);
+                TextView tvDate = findViewById(R.id.tvDateMovie);
+                TextView tvPrice = findViewById(R.id.tvPriceMovie);
 
                 tvMovieName.setText(ticketMovie.getNamaMovie());
                 tvHarga.setText(String.valueOf(ticketMovie.getHarga()));
@@ -208,6 +208,7 @@ public class BookMovieActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
+                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override
