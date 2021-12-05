@@ -1,5 +1,6 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
+import static com.android.volley.Request.Method.DELETE;
 import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
 
 import android.content.Context;
@@ -109,5 +110,6 @@ public class FragmentTiketEvent extends Fragment {
         };
         VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
+
 
 }

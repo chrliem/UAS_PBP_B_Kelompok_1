@@ -130,7 +130,7 @@
                 android:layout_below="@id/card1"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="200dp"
@@ -146,23 +146,23 @@
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white">
-
-                        <Spinner
-                            android:id="@+id/spinnerSection"
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:entries="@array/section_array"
-                            android:textColor="@color/black" />
-                    </RelativeLayout>
+                            android:layout_height="wrap_content"
+                            android:hint="@string/pilih_section">
+                            <AutoCompleteTextView
+                                android:id="@+id/ddSection"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:orientation="vertical">
@@ -175,18 +175,18 @@
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
-                    <RelativeLayout
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:background="@color/white">
-
-                        <Spinner
-                            android:id="@+id/spinnerSeatNumber"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/pilih_seat">
+                        <AutoCompleteTextView
+                            android:id="@+id/ddSeatNumber"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:entries="@array/seat_array"
-                            android:spinnerMode="dropdown" />
-                    </RelativeLayout>
+                            android:layout_weight="1"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -207,19 +207,18 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
-                <RelativeLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="@color/white">
-
-                    <Spinner
-                        android:id="@+id/spinnerTime"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pilih_waktu">
+                    <AutoCompleteTextView
+                        android:id="@+id/ddTime"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:entries="@array/time_array"
-                        android:spinnerMode="dropdown"
-                        android:textColor="@color/black" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

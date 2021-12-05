@@ -1,8 +1,11 @@
 package com.pbp_b_kelompok_1.ticketplease.adapters;
 
+import static com.android.volley.Request.Method.DELETE;
 import static com.android.volley.Request.Method.GET;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +26,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
+import com.pbp_b_kelompok_1.ticketplease.BookEventActivity;
 import com.pbp_b_kelompok_1.ticketplease.FragmentDetailTicketEvent;
+import com.pbp_b_kelompok_1.ticketplease.FragmentTiketEvent;
+import com.pbp_b_kelompok_1.ticketplease.MainActivity;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.R;
 import com.pbp_b_kelompok_1.ticketplease.VolleySingleton;
@@ -69,7 +76,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketEventAdapter.viewHolder holder, int position) {
         TicketEvent ticketEvent = ticketEventList.get(position);
-        holder.kodeBooking.setText(String.valueOf(position));
+        holder.kodeBooking.setText(String.valueOf(ticketEvent.getKodeTiket()));
         holder.tanggal.setText(ticketEvent.getTanggalEvent());
         holder.namaEvent.setText(ticketEvent.getNamaEvent());
         holder.venueEvent.setText(ticketEvent.getVenueEvent());
@@ -98,9 +105,9 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
 //                Mengeset Tampilan TextView
                 tvNamaEvent.setText(ticketEvent.getNamaEvent());
                 tvPemilikTiket.setText(ticketEvent.getNamaPemesan());
-                tvKodeBooking.setText("");
+                tvKodeBooking.setText(String.valueOf(ticketEvent.getKodeTiket()));
                 tvSection.setText(ticketEvent.getSection());
-                tvTanggalWaktu.setText(ticketEvent.getTanggalEvent() + "\n" +ticketEvent.getTanggalEvent());
+                tvTanggalWaktu.setText(ticketEvent.getTanggalEvent() + "\n" +ticketEvent.getWaktuEvent());
                 tvVenue.setText(ticketEvent.getVenueEvent());
                 tvSeat.setText(ticketEvent.getSeatNumber());
 
@@ -118,38 +125,51 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                 });
             }
         });
+
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(layoutInflater.getContext(), BookEventActivity.class);
+                intent.putExtra("kodeTiket", ticketEvent.getKodeTiket());
+                mContext.startActivity(intent);
             }
         });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MaterialAlertDialogBuilder materialAlertDialogBuilder =
+                        new MaterialAlertDialogBuilder(mContext);
+                materialAlertDialogBuilder.setTitle("Konfirmasi")
+                        .setMessage("Apakah anda yakin ingin membatalkan tiket event ini?")
+                        .setNegativeButton("Batal", null)
+                        .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                deleteTicketEvent(ticketEvent.getKodeTiket());
+                            }
+                        })
+                        .show();
             }
         });
     }
-
-    public void getTicketEventById(long id){
-        StringRequest stringRequest = new StringRequest(GET, TicketEventApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+    private void deleteTicketEvent(long id){
+        StringRequest stringRequest = new StringRequest(DELETE, TicketEventApi.DELETE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
-                TicketEvent ticketEvent = ticketEventResponse.getTicketEventList().get(0);
-                Toast.makeText(mContext, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(layoutInflater.getContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener(){
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error){
                 try{
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(mContext, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(layoutInflater.getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    Toast.makeText(layoutInflater.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -157,19 +177,11 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
+                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
                 return headers;
             }
         };
-        VolleySingleton.getInstance(mContext).addToRequestQueue(stringRequest);
-
-    }
-
-    private void updateTicketEvent(long id){
-
-    }
-
-    private void deleteTicketEvent(long id){
+        VolleySingleton.getInstance(layoutInflater.getContext()).addToRequestQueue(stringRequest);
 
     }
 

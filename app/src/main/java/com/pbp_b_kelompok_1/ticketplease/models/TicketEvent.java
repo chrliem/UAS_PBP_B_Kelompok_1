@@ -1,6 +1,9 @@
 package com.pbp_b_kelompok_1.ticketplease.models;
 
+import android.content.Intent;
+
 public class TicketEvent {
+    private long kodeTiket;
     private String namaEvent;
     private String namaPemesan;
     private String section;
@@ -21,6 +24,14 @@ public class TicketEvent {
         this.venueEvent = venueEvent;
         this.alamatEvent = alamatEvent;
         this.harga = harga;
+    }
+
+    public long getKodeTiket() {
+        return kodeTiket;
+    }
+
+    public void setKodeTiket(int kodeTiket) {
+        this.kodeTiket = kodeTiket;
     }
 
     public String getNamaEvent() {
