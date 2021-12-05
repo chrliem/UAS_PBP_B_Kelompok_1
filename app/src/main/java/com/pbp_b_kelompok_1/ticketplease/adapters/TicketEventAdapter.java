@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -54,6 +55,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     private LayoutInflater layoutInflater;
     private UserPreferences userPreferences;
     private User user;
+    private TicketEventAdapter ticketEventAdapter;
 
     public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList, UserPreferences userPreferences){
         layoutInflater = LayoutInflater.from(context);
@@ -129,7 +131,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(layoutInflater.getContext(), BookEventActivity.class);
+                Intent intent = new Intent(mContext, BookEventActivity.class);
                 intent.putExtra("kodeTiket", ticketEvent.getKodeTiket());
                 mContext.startActivity(intent);
             }
@@ -160,6 +162,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                 Gson gson = new Gson();
                 TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
                 Toast.makeText(layoutInflater.getContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
             }
         }, new Response.ErrorListener(){
             @Override
@@ -185,6 +188,39 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
 
     }
 
+//    public void getAllTicketEvent(){
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, TicketEventApi.GET_ALL_URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Gson gson = new Gson();
+//                TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
+//                ticketEventAdapter.setTicketEventList(ticketEventResponse.getTicketEventList());
+//                Toast.makeText(mContext.getApplicationContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                try {
+//                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+//                    JSONObject errors = new JSONObject(responseBody);
+//
+//                    Toast.makeText(mContext.getApplicationContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+//                } catch (Exception e) {
+//                    Toast.makeText(mContext.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }) {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("Accept", "application/json");
+//                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+//                return headers;
+//            }
+//        };
+//        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
+//    }
+//
     @Override
     public int getItemCount() {
         return ticketEventList.size();

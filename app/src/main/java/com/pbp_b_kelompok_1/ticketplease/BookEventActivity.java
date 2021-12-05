@@ -92,6 +92,7 @@ public class BookEventActivity extends AppCompatActivity {
         user = userPreferences.getUserLogin();
         btnPesan = findViewById(R.id.btnPesan);
         long id = getIntent().getLongExtra("kodeTiket",-1);
+        Toast.makeText(BookEventActivity.this, id + "", Toast.LENGTH_SHORT).show();
 //        long id = getIntent().getIntExtra("kodeTiket",-1);
 
         if(id==-1){
