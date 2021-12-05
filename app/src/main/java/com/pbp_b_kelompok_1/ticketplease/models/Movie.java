@@ -2,15 +2,25 @@ package com.pbp_b_kelompok_1.ticketplease.models;
 
 public class Movie {
     private String namaMovie;
+    private String tanggalMovie;
     private String urlImage;
     private String sinopsis;
     private Double hargaMovie;
 
-    public Movie(String namaMovie, String urlImage, String sinopsis, Double hargaMovie) {
+    public Movie(String namaMovie, String tanggalMovie, String urlImage, String sinopsis, Double hargaMovie) {
         this.namaMovie = namaMovie;
+        this.tanggalMovie = tanggalMovie;
         this.urlImage = urlImage;
         this.sinopsis = sinopsis;
         this.hargaMovie = hargaMovie;
+    }
+
+    public String getTanggalMovie() {
+        return tanggalMovie;
+    }
+
+    public void setTanggalMovie(String tanggalMovie) {
+        this.tanggalMovie = tanggalMovie;
     }
 
     public String getNamaMovie() {

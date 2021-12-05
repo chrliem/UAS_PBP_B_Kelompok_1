@@ -3,12 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTiketMovie">
+    android:gravity="center"
+    tools:context=".FragmentTiketMovie"
+    android:background="@color/backgroundColor">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubikmono"
+        android:text="@string/your_movie_tickets"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:ignore="RelativeOverlap"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="75dp"
+        android:id="@+id/rvTiketMovie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:listitem="@layout/rv_tiketmovie"/>
 
 </FrameLayout>

@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FragmentMovie">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/backgroundColor">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcome"
+                android:fontFamily="@font/rubikmono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:fontFamily="@font/rubikmono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/welcome"
+                android:text="@string/username1"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/white"
+                android:textSize="30sp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMovie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/rv_movie"
+                android:layout_below="@id/tvUsername"/>
+        </RelativeLayout>
+    </FrameLayout>
+</layout>

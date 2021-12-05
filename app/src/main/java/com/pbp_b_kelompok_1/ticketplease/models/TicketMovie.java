@@ -1,29 +1,30 @@
 package com.pbp_b_kelompok_1.ticketplease.models;
 public class TicketMovie {
-    private int kodeTiket;
+    private int kodeTiketMovie;
     private String namaMovie;
     private String namaPemesan;
     private String seatNumber;
     private String tanggalMovie;
     private String waktuMovie;
+    private String sinopsis;
     private Double harga;
 
-    public TicketMovie(int kodeTiket, String namaMovie, String namaPemesan, String seatNumber, String tanggalMovie, String waktuMovie, Double harga) {
-        this.kodeTiket = kodeTiket;
+    public TicketMovie(String namaMovie, String namaPemesan, String seatNumber, String tanggalMovie, String waktuMovie, String sinopsis, Double harga) {
         this.namaMovie = namaMovie;
         this.namaPemesan = namaPemesan;
         this.seatNumber = seatNumber;
         this.tanggalMovie = tanggalMovie;
         this.waktuMovie = waktuMovie;
+        this.sinopsis = sinopsis;
         this.harga = harga;
     }
 
     public int getKodeTiket() {
-        return kodeTiket;
+        return kodeTiketMovie;
     }
 
-    public void setKodeTiket(int kodeTiket) {
-        this.kodeTiket = kodeTiket;
+    public void setKodeTiket(int kodeTiketMovie) {
+        this.kodeTiketMovie = kodeTiketMovie;
     }
 
     public String getNamaMovie() {
@@ -64,6 +65,14 @@ public class TicketMovie {
 
     public void setWaktuMovie(String waktuMovie) {
         this.waktuMovie = waktuMovie;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public Double getHarga() {

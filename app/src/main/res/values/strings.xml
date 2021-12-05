@@ -66,8 +66,17 @@
     <string name="your_ticket">YOUR TICKET</string>
     <string name="section">Section</string>
     <string name="seat_number">Seat Number</string>
-    <string name="tanggal_dan_waktu">Tanggal dan Waktu</string>
+    <string name="waktu">Waktu</string>
     <string name="venue_tiket">Venue</string>
+    <string name="judulMovie">Judul Movie</string>
+    <string name="sinopsis">Sinopsis</string>
+    <string name="movie_details">movie_details</string>
+    <string name="judul_movie">judul movie</string>
+    <string name="nama_movie">Nama Movie</string>
+    <string name="ok">OK</string>
+    <string name="your_movie_tickets">YOUR MOVIE TICKETS</string>
+    <string name="kode_tiket">Kode Tiket</string>
+    <string name="tanggal_dan_waktu">Tanggal dan Waktu</string>
     <string-array name="section_array">
         <item>VVIP</item>
         <item>VIP</item>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/backgroundColor">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/putihCustom"
+        app:cardCornerRadius="30dp"
+        tools:context=".FragmentDetailTicketMovie">
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTicketDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/rubikmono"
+                android:text="@string/your_ticket"
+                android:textColor="@color/backgroundColor"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:layout_marginTop="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNamaTiketMovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nama_movie"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="45dp"
+                    android:text="@string/nama_pemilik_tiket"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNamaPemilikTiketMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/nama_pemilik_tiket"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/kode_booking"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvKodeTiketMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/kode_booking"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/seat_number"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSeatNumberTiketMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/seat_number"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/tanggal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTanggalTiketMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/tanggal"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/waktu"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvWaktuTiketMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/waktu"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/sinopsis"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSinopsisMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/sinopsis"
+                    android:textSize="25sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/ok"
+                    app:backgroundTint="@color/backgroundColor"
+                    app:cornerRadius="30dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

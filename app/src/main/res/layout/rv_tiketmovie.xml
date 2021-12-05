@@ -1,6 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="8dp"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="25dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="#D3C5C5">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="5dp"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:id="@+id/itemLeft"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/tvKodeTiket"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/kode_tiket"
+                android:textAlignment="center" />
+            <TextView
+                android:id="@+id/tvWaktuMovie"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/waktu"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/itemLeft"
+            android:orientation="vertical"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/tvNamaMovieRiwayat"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nama_movie" />
+
+            <TextView
+                android:id="@+id/tvTanggalMovie"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tanggal"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tvNamaPemilikMovie"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/nama_pemilik_tiket" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivLogoMovie"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@+id/itemRight"
+            android:src="@drawable/ic_baseline_home_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/ivLogoMovie"
+            android:layout_marginTop="35dp">
+            <ImageButton
+                android:id="@+id/btnEditMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_round_edit_24"
+                android:backgroundTint="@color/backgroundColor"/>
+            <ImageButton
+                android:id="@+id/btnDeleteMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:backgroundTint="@color/backgroundColor"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
