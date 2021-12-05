@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class FragmentTiketEvent extends Fragment {
    private TicketEventAdapter ticketEventAdapter;
    private ArrayList<TicketEvent> ticketEventList;
    private UserPreferences userPreferences;
-   private UserResponse userResponse;
+    private LinearLayout layoutLoading;
+    private UserResponse userResponse;
    private User user;
    private TicketEvent ticketEvent;
 
@@ -57,7 +59,6 @@ public class FragmentTiketEvent extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

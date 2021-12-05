@@ -1,11 +1,14 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
+import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.POST;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +19,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
@@ -35,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout textNama, textEmail, textUsername, textPassword;
     private Button btnRegister;
     private UserPreferences userPreferences;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         userPreferences = new UserPreferences(RegisterActivity.this);
+        mAuth = FirebaseAuth.getInstance();
 
         textNama = findViewById(R.id.inputRegisName);
         textEmail = findViewById(R.id.inputRegisEmail);
@@ -81,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else{
                     register();
-                    Toast.makeText(RegisterActivity.this, "Berhasil Register Akun !", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(RegisterActivity.this, "Berhasil Register Akun !", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -95,7 +108,8 @@ public class RegisterActivity extends AppCompatActivity {
                 textUsername.getEditText().getText().toString(),
                 textPassword.getEditText().getText().toString()
         );
-
+        String email = textEmail.getEditText().getText().toString();
+        String password = textPassword.getEditText().getText().toString();
         StringRequest stringRequest = new StringRequest(POST, UserApi.REGISTER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -140,5 +154,24 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
+            if(task.isSuccessful()){
+                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }else{
+                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 }

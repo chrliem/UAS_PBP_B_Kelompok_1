@@ -162,7 +162,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                 Gson gson = new Gson();
                 TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
                 Toast.makeText(layoutInflater.getContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
+                ticketEventAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener(){
             @Override
