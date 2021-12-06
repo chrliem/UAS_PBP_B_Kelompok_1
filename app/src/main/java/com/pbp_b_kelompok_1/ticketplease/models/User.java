@@ -13,14 +13,24 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private String imgUrl;
     private Long id;
 
-    public User(String accessToken, String fullName, String email, String username, String password) {
+    public User(String accessToken, String fullName, String email, String username, String password, String imgUrl) {
         this.accessToken = accessToken;
         this.fullName = fullName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Long getId() {

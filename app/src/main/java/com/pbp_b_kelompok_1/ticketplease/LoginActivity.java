@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 //        Toast.makeText(LoginActivity.this, username, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
 //        String ACCESS_TOKEN = null;
-        User user = new User(userPreferences.getUserLogin().getAccessToken(), userPreferences.getUserLogin().getFullName(),userPreferences.getUserLogin().getEmail(),username,password);
+        User user = new User(userPreferences.getUserLogin().getAccessToken(), userPreferences.getUserLogin().getFullName(),userPreferences.getUserLogin().getEmail(),username,password,userPreferences.getUserLogin().getImgUrl());
         StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -107,7 +107,8 @@ public class LoginActivity extends AppCompatActivity {
                         userResponse.getUser().getFullName(),
                         userResponse.getUser().getEmail(),
                         userResponse.getUser().getUsername(),
-                        userResponse.getUser().getPassword());
+                        userResponse.getUser().getPassword(),
+                        userResponse.getUser().getImgUrl());
                 Toast.makeText(LoginActivity.this, userResponse.getAccess_token(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

@@ -106,10 +106,10 @@ public class RegisterActivity extends AppCompatActivity {
                 textNama.getEditText().getText().toString(),
                 textEmail.getEditText().getText().toString(),
                 textUsername.getEditText().getText().toString(),
-                textPassword.getEditText().getText().toString()
+                textPassword.getEditText().getText().toString(),
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
         );
-        String email = textEmail.getEditText().getText().toString();
-        String password = textPassword.getEditText().getText().toString();
+
         StringRequest stringRequest = new StringRequest(POST, UserApi.REGISTER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

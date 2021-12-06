@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
@@ -34,6 +35,7 @@ import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -91,7 +93,8 @@ public class BookMovieActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     addTicketMovie();
-                    onBackPressed();
+                    Intent intent = new Intent(BookMovieActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             });
         }else{
@@ -127,6 +130,7 @@ public class BookMovieActivity extends AppCompatActivity {
                 TextView tvHarga = findViewById(R.id.tvMoviePriceOrder);
                 TextView tvDate = findViewById(R.id.tvDateMovie);
                 TextView tvPrice = findViewById(R.id.tvPriceMovie);
+                TextView tvSection = findViewById(R.id.tvSinopsisMovie);
 
                 tvMovieName.setText(ticketMovie.getNamaMovie());
                 tvHarga.setText(String.valueOf(ticketMovie.getHarga()));
@@ -134,6 +138,7 @@ public class BookMovieActivity extends AppCompatActivity {
                 ddTimeMovie.setText(ticketMovie.getWaktuMovie(),false);
                 tvDate.setText(ticketMovie.getTanggalMovie());
                 tvPrice.setText(String.valueOf(ticketMovie.getHarga()));
+                tvSection.setText(ticketMovie.getSinopsis());
                 Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {

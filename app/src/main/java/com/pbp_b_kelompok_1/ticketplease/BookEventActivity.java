@@ -102,7 +102,8 @@ public class BookEventActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     addTicketEvent();
-                    onBackPressed();
+                    Intent intent = new Intent(BookEventActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             });
         }else{
