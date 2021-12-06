@@ -28,10 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
-import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
-import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
-import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
@@ -79,12 +76,7 @@ public class FragmentProfile extends Fragment {
         if(getArguments() != null){
             id = getArguments().getLong("id");
             getUserbyId(id);
-            Toast.makeText(getContext(),id+"Fragment Profile", Toast.LENGTH_LONG).show();
         }
-
-
-
-
 
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,8 +116,6 @@ public class FragmentProfile extends Fragment {
                         .show();
             }
         });
-
-//        Toast.makeText(getContext(), " "+userPreferences.getUserLogin().getId(), Toast.LENGTH_SHORT).show();
     }
 
     private void checkLogin() {
@@ -135,16 +125,9 @@ public class FragmentProfile extends Fragment {
             startActivity(new Intent(getContext(), LoginActivity.class));
             getActivity().finish();
         } else {
-            Toast.makeText(getContext(), "Heyy Kamu Sudah Login !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext().getApplicationContext(), "Heyy Kamu Sudah Login !!", Toast.LENGTH_SHORT).show();
         }
     }
-
-//    public void changeFragment(Fragment fragment) {
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.layout_fragment, fragment)
-//                .commit();
-//    }
 
     private void getUserbyId(Long id){
         StringRequest stringRequest = new StringRequest(GET, UserApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
@@ -179,8 +162,7 @@ public class FragmentProfile extends Fragment {
                 headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
-        };            VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-
-
+        };
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 }

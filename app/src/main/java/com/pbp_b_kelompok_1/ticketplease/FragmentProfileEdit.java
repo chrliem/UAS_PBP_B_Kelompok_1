@@ -92,9 +92,6 @@ public class FragmentProfileEdit extends Fragment {
         btnCancel = view.findViewById(R.id.btnCancel);
         btnConfirm = view.findViewById(R.id.btnConfirm);
         btnCamera = view.findViewById(R.id.btnCamera);
-//        btnEditNama = view.findViewById(R.id.btnNamaEdit);
-//        btnEditUsername = view.findViewById(R.id.btnUsernameEdit);
-//        btnEditEmail = view.findViewById(R.id.btnEmailEdit);
         photoProfile = view.findViewById(R.id.photoProfile);
         tvNama = view.findViewById(R.id.tvNamaEdit);
         tvUsername = view.findViewById(R.id.tvUsernameEdit);
@@ -105,7 +102,7 @@ public class FragmentProfileEdit extends Fragment {
         if(getArguments() != null){
             id = getArguments().getLong("id");
             getUserbyId(id);
-            Toast.makeText(getContext(),id+"Fragment Edit Profile", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),id+" Fragment Edit Profile", Toast.LENGTH_LONG).show();
         }
 
         tvNama.setText(user.getFullName());
@@ -114,90 +111,6 @@ public class FragmentProfileEdit extends Fragment {
         Glide.with(getContext())
                 .load(user.getImgUrl())
                 .into(photoProfile);
-
-//        btnEditNama.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-//                View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.dialog_edit_profile, null);
-//
-//                textEdit = newLayout.findViewById(R.id.textEdit);
-//                btnUpdate = newLayout.findViewById(R.id.btnUpdate);
-//
-//                textEdit.setText(tvNama.getText().toString());
-//                builder.setView(newLayout);
-//                builder.setTitle("Edit Data");
-//
-//                AlertDialog popup = builder.create();
-//                popup.show();
-//
-//                btnUpdate.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        tvNama.setText(textEdit.getText().toString());
-//                        user.setFullName(tvNama.getText().toString());
-//                        Toast.makeText(getContext(), "Berhasil Update nama", Toast.LENGTH_SHORT).show();
-//                        popup.dismiss();
-//                    }
-//                });
-//            }
-//        });
-//
-//        btnEditUsername.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-//                View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.dialog_edit_profile, null);
-//
-//                textEdit = newLayout.findViewById(R.id.textEdit);
-//                btnUpdate = newLayout.findViewById(R.id.btnUpdate);
-//
-//                textEdit.setText(tvUsername.getText().toString());
-//                builder.setView(newLayout);
-//                builder.setTitle("Edit Data");
-//
-//                AlertDialog popup = builder.create();
-//                popup.show();
-//
-//                btnUpdate.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        tvUsername.setText(textEdit.getText().toString());
-//                        user.setUsername(tvUsername.getText().toString());
-//                        Toast.makeText(getContext(), "Berhasil Update Username", Toast.LENGTH_SHORT).show();
-//                        popup.dismiss();
-//                    }
-//                });
-//            }
-//        });
-//
-//        btnEditEmail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-//                View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.dialog_edit_profile, null);
-//
-//                textEdit = newLayout.findViewById(R.id.textEdit);
-//                btnUpdate = newLayout.findViewById(R.id.btnUpdate);
-//
-//                textEdit.setText(tvEmail.getText().toString());
-//                builder.setView(newLayout);
-//                builder.setTitle("Edit Data");
-//
-//                AlertDialog popup = builder.create();
-//                popup.show();
-//
-//                btnUpdate.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        tvEmail.setText(textEdit.getText().toString());
-//                        user.setEmail(tvEmail.getText().toString());
-//                        Toast.makeText(getContext(), "Berhasil Update Email", Toast.LENGTH_SHORT).show();
-//                        popup.dismiss();
-//                    }
-//                });
-//            }
-//        });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,8 +123,6 @@ public class FragmentProfileEdit extends Fragment {
             @Override
             public void onClick(View view) {
                 updateUser(id);
-                Toast.makeText(getContext(), "Berhasil Edit Profile, silakan Logout !", Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(), "" +user.getId(), Toast.LENGTH_LONG).show();
                 onBackPressed();
             }
         });
@@ -316,7 +227,7 @@ public class FragmentProfileEdit extends Fragment {
 
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
 
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);

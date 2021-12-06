@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     configurations {
-        all*.exclude group:'com.amazonaws'
+        all*.exclude group: 'com.amazonaws'
     }
     buildTypes {
         release {
@@ -25,7 +25,7 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
     compileOptions {
@@ -56,16 +56,16 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
-    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1'){
-        exclude module:'gson'
+    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1') {
+        exclude module: 'gson'
     }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation:0.13.0'){
-        exclude module:'gson'
+    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation:0.13.0') {
+        exclude module: 'gson'
     }
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.13.0'){
+    implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.13.0') {
         transitive = true
-        exclude module:'gson'
+        exclude module: 'gson'
     }
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
@@ -76,4 +76,9 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    //Unit Testing
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 }

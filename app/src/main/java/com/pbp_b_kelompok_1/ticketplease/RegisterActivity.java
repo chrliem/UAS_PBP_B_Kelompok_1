@@ -1,6 +1,5 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
-import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.POST;
 
 import androidx.annotation.NonNull;
@@ -8,32 +7,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -46,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     private UserPreferences userPreferences;
     private FirebaseAuth mAuth;
-
+    private String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nama = textNama.getEditText().getText().toString();
-                String email = textEmail.getEditText().getText().toString();
+                email = textEmail.getEditText().getText().toString();
                 String username = textUsername.getEditText().getText().toString();
-                String password = textPassword.getEditText().getText().toString();
+                password = textPassword.getEditText().getText().toString();
 
                 if(nama.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty()){
                     if(nama.trim().isEmpty()){
@@ -94,7 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else{
                     register();
-//                    Toast.makeText(RegisterActivity.this, "Berhasil Register Akun !", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -129,8 +120,10 @@ public class RegisterActivity extends AppCompatActivity {
                     JSONObject errors = new JSONObject(responseBody);
 
                     Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "error anjg", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "error anjg 2", Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -154,24 +147,23 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-//        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
-//            if(task.isSuccessful()){
-//                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
-//                        }else{
-//                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }else{
-//                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
+            if(task.isSuccessful()){
+                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }else{
+                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-
 }
