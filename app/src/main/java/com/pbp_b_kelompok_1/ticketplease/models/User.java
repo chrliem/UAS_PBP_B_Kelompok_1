@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String username;
     private String password;
+    @SerializedName("imgURL")
     private String imgUrl;
     private Long id;
 

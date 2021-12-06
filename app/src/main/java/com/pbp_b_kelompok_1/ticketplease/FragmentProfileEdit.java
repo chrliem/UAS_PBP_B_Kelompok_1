@@ -36,6 +36,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.api.TicketEventApi;
@@ -71,6 +72,7 @@ public class FragmentProfileEdit extends Fragment {
     private User user;
     private Bitmap bitmap = null;
     private UserResponse userResponse;
+    private Long id;
 
     public FragmentProfileEdit() {
         // Required empty public constructor
@@ -100,10 +102,18 @@ public class FragmentProfileEdit extends Fragment {
 
         userPreferences = new UserPreferences(this.getContext());
         user = userPreferences.getUserLogin();
+        if(getArguments() != null){
+            id = getArguments().getLong("id");
+            getUserbyId(id);
+            Toast.makeText(getContext(),id+"Fragment Edit Profile", Toast.LENGTH_LONG).show();
+        }
 
         tvNama.setText(user.getFullName());
         tvUsername.setText(user.getUsername());
         tvEmail.setText(user.getEmail());
+        Glide.with(getContext())
+                .load(user.getImgUrl())
+                .into(photoProfile);
 
 //        btnEditNama.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -132,7 +142,7 @@ public class FragmentProfileEdit extends Fragment {
 //                });
 //            }
 //        });
-
+//
 //        btnEditUsername.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -160,7 +170,7 @@ public class FragmentProfileEdit extends Fragment {
 //                });
 //            }
 //        });
-
+//
 //        btnEditEmail.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -199,7 +209,7 @@ public class FragmentProfileEdit extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                updateUser(user.getId());
+                updateUser(id);
                 Toast.makeText(getContext(), "Berhasil Edit Profile, silakan Logout !", Toast.LENGTH_LONG).show();
                 Toast.makeText(getContext(), "" +user.getId(), Toast.LENGTH_LONG).show();
                 onBackPressed();
@@ -306,7 +316,7 @@ public class FragmentProfileEdit extends Fragment {
 
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
 
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
@@ -354,15 +364,15 @@ public class FragmentProfileEdit extends Fragment {
 
     }
 
-    private void updateUser(long id){
+    private void updateUser(Long id){
 
         User user = new User(
                 null,
-                tvNama.getText().toString().trim(),
-                tvEmail.getText().toString().trim(),
-                tvUsername.getText().toString().trim(),
+                tvNama.getText().toString(),
+                tvEmail.getText().toString(),
+                tvUsername.getText().toString(),
                 null,
-                null
+                bitmapToBase64(bitmap)
         );
 
         StringRequest stringRequest = new StringRequest(PUT, UserApi.UPDATE_URL + id, new Response.Listener<String>() {
@@ -383,9 +393,9 @@ public class FragmentProfileEdit extends Fragment {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext().getApplicationContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }) {

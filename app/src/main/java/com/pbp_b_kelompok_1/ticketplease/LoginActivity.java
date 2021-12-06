@@ -4,6 +4,9 @@ import static com.android.volley.Request.Method.POST;
 import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -109,8 +112,18 @@ public class LoginActivity extends AppCompatActivity {
                         userResponse.getUser().getUsername(),
                         userResponse.getUser().getPassword(),
                         userResponse.getUser().getImgUrl());
-                Toast.makeText(LoginActivity.this, userResponse.getAccess_token(), Toast.LENGTH_SHORT).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putLong("id",userResponse.getUser().getId());
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                FragmentProfile fragmentProfile = new FragmentProfile();
+//
+//                fragmentProfile.setArguments(bundle);
+//                getSupportFragmentManager().beginTransaction().add(R.id.layout_fragment, fragmentProfile).commit();
+                Toast.makeText(LoginActivity.this, userResponse.getUser().getId()+"", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, userResponse.getAccess_token(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("id",userResponse.getUser().getId());
                 startActivity(intent);
                 finish();
             }
@@ -121,8 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
                         Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, user.getId()+" ", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
+//                        Toast.makeText(LoginActivity.this, user.getId()+" ", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
                 }catch (Exception e){
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
