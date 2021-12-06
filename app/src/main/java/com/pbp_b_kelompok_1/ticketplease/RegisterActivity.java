@@ -120,10 +120,8 @@ public class RegisterActivity extends AppCompatActivity {
                     JSONObject errors = new JSONObject(responseBody);
 
                     Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(RegisterActivity.this, "error anjg", Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
                     Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(RegisterActivity.this, "error anjg 2", Toast.LENGTH_SHORT).show();
                 }
             }
         }){

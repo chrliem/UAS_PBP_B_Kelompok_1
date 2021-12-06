@@ -33,7 +33,7 @@ public class DummyMovie {
             "Fast & Furious",
             "1 Januari 2022",
             "https://ae01.alicdn.com/kf/HTB1Z9wAejgy_uJjSZKzq6z_jXXaG.jpg",
-            "Fast & Furious is a media franchise centered on a series of action films that are largely concerned with illegal street racing, heists, spies and family. The franchise also includes short films, a television series, live shows, video games and theme park attractions. It is distributed by Universal Pictures.",
+            "Fast & Furious is a media franchise centered on a series of action films that are largely concerned with illegal street racing, heists, spies and family.",
             30000.00);
 
     public static final Movie movie4 = new Movie(

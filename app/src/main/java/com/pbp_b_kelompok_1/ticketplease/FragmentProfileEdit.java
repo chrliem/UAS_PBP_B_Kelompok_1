@@ -102,7 +102,7 @@ public class FragmentProfileEdit extends Fragment {
         if(getArguments() != null){
             id = getArguments().getLong("id");
             getUserbyId(id);
-            Toast.makeText(getContext(),id+" Fragment Edit Profile", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(),id+" Fragment Edit Profile", Toast.LENGTH_LONG).show();
         }
 
         tvNama.setText(user.getFullName());
