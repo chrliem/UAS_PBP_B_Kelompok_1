@@ -48,7 +48,6 @@ public class FragmentProfile extends Fragment {
         textNama = view.findViewById(R.id.tvNama);
         textUsername = view.findViewById(R.id.tvUsername);
         textEmail = view.findViewById(R.id.tvEmail);
-        textAlamat = view.findViewById(R.id.tvAlamat);
         btnLogout = view.findViewById(R.id.btnLogout);
         btnSetting = view.findViewById(R.id.btnSetting);
 
@@ -62,12 +61,13 @@ public class FragmentProfile extends Fragment {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Fragment fragment = new FragmentProfileEdit();
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.layout_fragment, fragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
+
+                Fragment fragment = new FragmentProfileEdit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.layout_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
@@ -94,6 +94,8 @@ public class FragmentProfile extends Fragment {
                         .show();
             }
         });
+
+        Toast.makeText(getContext(), " "+userPreferences.getUserLogin().getId(), Toast.LENGTH_SHORT).show();
     }
 
     private void checkLogin() {

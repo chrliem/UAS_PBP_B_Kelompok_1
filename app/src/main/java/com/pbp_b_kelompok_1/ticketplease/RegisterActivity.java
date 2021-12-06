@@ -154,23 +154,23 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
-            if(task.isSuccessful()){
-                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }else{
-                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
+//            if(task.isSuccessful()){
+//                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
+//                        }else{
+//                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            }else{
+//                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 

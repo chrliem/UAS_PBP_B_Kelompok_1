@@ -102,7 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
 
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                userPreferences.setLogin(userResponse.getAccess_token(),
+                userPreferences.setLogin(
+                        userResponse.getAccess_token(),
                         userResponse.getUser().getFullName(),
                         userResponse.getUser().getEmail(),
                         userResponse.getUser().getUsername(),
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
                         Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, user.getId()+" ", Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginActivity.this, errors.getString("token"), Toast.LENGTH_SHORT).show(); //ini buat liat dia bawa token apa ga
                 }catch (Exception e){
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

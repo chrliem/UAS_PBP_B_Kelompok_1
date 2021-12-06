@@ -1,8 +1,9 @@
 package com.pbp_b_kelompok_1.ticketplease.api;
 public class TicketMovieApi {
 //    public static String BASE_URL = "http://192.168.100.5:8000/api/";
-    public static String BASE_URL = "http://192.168.1.7:8000/api/"; //Ravel
+//    public static String BASE_URL = "http://192.168.1.7:8000/api/"; //Ravel
 //    public static String BASE_URL = "http://192.168.131.229:8000/api/";
+    public static String BASE_URL = "http://192.168.45.65:8000/api/"; //Felix
 
     public static final String GET_ALL_URL = BASE_URL + "ticket-movie";
     public static final String GET_BY_ID_URL = BASE_URL + "ticket-movie/";

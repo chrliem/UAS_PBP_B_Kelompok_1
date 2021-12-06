@@ -13,7 +13,7 @@ public class User {
     private String email;
     private String username;
     private String password;
-
+    private Long id;
 
     public User(String accessToken, String fullName, String email, String username, String password) {
         this.accessToken = accessToken;
@@ -21,6 +21,14 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAccessToken() {

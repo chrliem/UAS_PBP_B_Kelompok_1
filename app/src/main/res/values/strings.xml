@@ -77,6 +77,8 @@
     <string name="your_movie_tickets">YOUR MOVIE TICKETS</string>
     <string name="kode_tiket">Kode Tiket</string>
     <string name="tanggal_dan_waktu">Tanggal dan Waktu</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
     <string-array name="section_array">
         <item>VVIP</item>
         <item>VIP</item>
