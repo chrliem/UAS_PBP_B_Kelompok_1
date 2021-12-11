@@ -9,11 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentDetailTicketMovie#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FragmentDetailTicketMovie extends Fragment {
 
     private static final String bund_namaMovie = "namaMovie";
@@ -37,7 +32,8 @@ public class FragmentDetailTicketMovie extends Fragment {
 
     public static FragmentDetailTicketMovie newInstance(Long kodeTiketMovie, String namaMovie,
                                                         String namaPemilik, String seatNumber,
-                                                        String tanggal, String waktu, String sinopsis) {
+                                                        String tanggal, String waktu,
+                                                        String sinopsis) {
         Bundle bundle = new Bundle();
         // Save data here
         bundle.putLong(bund_kodeTiketMovie, kodeTiketMovie);
@@ -59,7 +55,8 @@ public class FragmentDetailTicketMovie extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View root = inflater.inflate(R.layout.fragment_detail_ticket_movie, container, false);
+        View root = inflater.inflate(R.layout.fragment_detail_ticket_movie, container,
+                false);
 
         Long kodeTiketMovie = getArguments().getLong(bund_kodeTiketMovie);
         String namaMovie = getArguments().getString(bund_namaMovie);

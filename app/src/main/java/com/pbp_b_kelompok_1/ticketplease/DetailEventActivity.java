@@ -60,7 +60,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class DetailEventActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
+public class DetailEventActivity extends AppCompatActivity
+        implements OnMapReadyCallback, PermissionsListener {
 
     Event event;
     ActivityDetailEventBinding binding;
@@ -77,9 +78,7 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
     private static final String ICON_SOURCE_ID = "icon-source-id";
     private static final String RED_PIN_ICON_ID = "red-pin-icon-id";
     private static final String SOURCE_ID = "SOURCE_ID";
-    private FeatureCollection dashedLineDirectionsFeatureCollection;
     private DirectionsRoute currentRoute;
-    private Marker destinationMarker;
     private static final String DIRECTIONS_LAYER_ID = "DIRECTIONS_LAYER_ID";
     private static final String LAYER_BELOW_ID = "road-label-small";
 
@@ -113,7 +112,8 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
         btnPesanTiket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DetailEvent = new Intent(DetailEventActivity.this, BookEventActivity.class);
+                Intent DetailEvent = new Intent(DetailEventActivity.this,
+                        BookEventActivity.class);
                 Gson gson = new Gson();
                 String strEvent = gson.toJson(event);
 
@@ -147,7 +147,8 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
 
     @SuppressLint("MissingSuperCall")
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -159,16 +160,15 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
                 initDottedLineSourceAndLayer(style);
-//                MapBox Baru
 
+//                MapBox Baru
                 originPosition = Point.fromLngLat(getVenueLatitude(), getVenueLongitude());
                 destinationPosition = Point.fromLngLat(getVenueLatitude(), getVenueLongitude());
-//                destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(destinationMarker.getPosition()));
+
                 initSource(style);
                 initLayer(style);
 
                 getRoute(mapboxMap, originPosition, destinationPosition);
-//                getRoute(destinationPosition);
             }
         });
 
@@ -195,7 +195,8 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
             locationComponent.setRenderMode(RenderMode.NORMAL);
 
             locationComponent.setRenderMode(RenderMode.COMPASS);
-            this.originPosition = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+            this.originPosition = Point.fromLngLat(locationComponent
+                            .getLastKnownLocation().getLongitude(),
                     locationComponent.getLastKnownLocation().getLatitude());
         } else {
             permissionsManager = new PermissionsManager(this);
@@ -251,9 +252,12 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
 
     private void initSource(Style style) {
         style.addSource(new GeoJsonSource(ROUTE_SOURCE_ID));
-        GeoJsonSource iconGeoJsonSource = new GeoJsonSource(ICON_SOURCE_ID, FeatureCollection.fromFeatures(new Feature[]{
-                Feature.fromGeometry(Point.fromLngLat(originPosition.longitude(), originPosition.latitude())),
-                Feature.fromGeometry(Point.fromLngLat(destinationPosition.longitude(), destinationPosition.latitude()))}));
+        GeoJsonSource iconGeoJsonSource = new GeoJsonSource(ICON_SOURCE_ID,
+                FeatureCollection.fromFeatures(new Feature[]{
+                Feature.fromGeometry(Point.fromLngLat(originPosition.longitude(),
+                        originPosition.latitude())),
+                Feature.fromGeometry(Point.fromLngLat(destinationPosition.longitude(),
+                        destinationPosition.latitude()))}));
         style.addSource(iconGeoJsonSource);
     }
 
@@ -266,7 +270,8 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
                 lineColor(Color.parseColor("#009688")));
         style.addLayer(routeLayer);
 //        Add the red marker icon image to the map
-        style.addImage(RED_PIN_ICON_ID, BitmapUtils.getBitmapFromDrawable(getResources().getDrawable(R.drawable.red_marker)));
+        style.addImage(RED_PIN_ICON_ID, BitmapUtils
+                .getBitmapFromDrawable(getResources().getDrawable(R.drawable.red_marker)));
 //        Add the red marker icon SymbolLayer to the map
         style.addLayer(new SymbolLayer(ICON_LAYER_ID, ICON_SOURCE_ID).withProperties(
                 iconImage(RED_PIN_ICON_ID),
@@ -296,24 +301,26 @@ public class DetailEventActivity extends AppCompatActivity implements OnMapReady
                 .build();
         client.enqueueCall(new Callback<DirectionsResponse>() {
 
-            public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+            public void onResponse(Call<DirectionsResponse> call,
+                                   Response<DirectionsResponse> response) {
                 Timber.d("Response code: " + response.code());
                 if (response.body() == null) {
-                    Timber.e("No routes found, make sure you set the right user and access token.");
+                    Timber.e("No routes found, make sure you " +
+                            "set the right user and access token.");
                     return;
                 } else if (response.body().routes().size() < 1) {
                     Timber.e("No routes found");
                     return;
                 }
                 currentRoute = response.body().routes().get(0);
-//                drawNavigationPolylineRoute(response.body().routes().get(0));
                 if (mapboxMap != null) {
                     mapboxMap.getStyle(new Style.OnStyleLoaded() {
                         @Override
                         public void onStyleLoaded(@NonNull Style style) {
                             GeoJsonSource source = style.getSourceAs(ROUTE_SOURCE_ID);
                             if (source != null) {
-                                source.setGeoJson(LineString.fromPolyline(currentRoute.geometry(), PRECISION_6));
+                                source.setGeoJson(LineString.fromPolyline(currentRoute.geometry(),
+                                        PRECISION_6));
                             }
                         }
                     });

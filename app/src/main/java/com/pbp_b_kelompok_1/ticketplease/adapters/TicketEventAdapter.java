@@ -66,7 +66,8 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
 
     @NonNull
     @Override
-    public TicketEventAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TicketEventAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                            int viewType) {
         View view = layoutInflater.inflate(R.layout.rv_tiketevent, parent,false);
 
         final viewHolder holder = new viewHolder(view);
@@ -174,11 +175,14 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             @Override
             public void onErrorResponse(VolleyError error){
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(layoutInflater.getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(layoutInflater.getContext(), errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(layoutInflater.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(layoutInflater.getContext(), e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -208,11 +212,12 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
         protected TextView kodeBooking, tanggal, namaEvent, venueEvent, namaPemesan, seat;
         protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
+
         public viewHolder(View itemView){
             super(itemView);
             this.kodeBooking = itemView.findViewById(R.id.tvKodeBooking);
             this.tanggal = itemView.findViewById(R.id.tvTanggal);
-            this.seat = itemView.findViewById(R.id.tvTempatDudukEvent);
+            this.seat = itemView.findViewById(R.id.tvSeatEvent);
             this.namaEvent = itemView.findViewById(R.id.tvNamaEventRiwayat);
             this.venueEvent = itemView.findViewById(R.id.tvVenueRiwayat);
             this.namaPemesan = itemView.findViewById(R.id.tvNamaPemilik);

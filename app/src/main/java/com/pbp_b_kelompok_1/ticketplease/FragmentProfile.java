@@ -61,6 +61,7 @@ public class FragmentProfile extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         textNama = view.findViewById(R.id.tvNama);
         textUsername = view.findViewById(R.id.tvUsername);
         textEmail = view.findViewById(R.id.tvEmail);

@@ -37,14 +37,16 @@
                 android:layout_marginHorizontal="10dp"
                 android:text="@string/kode_tiket"
                 android:textAlignment="center" />
+
             <TextView
-                android:id="@+id/tvTempatDudukMovie"
+                android:id="@+id/tvSeatMovie"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/seat_number"
                 android:textAlignment="center" />
+
             <TextView
                 android:id="@+id/tvWaktuMovie"
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"

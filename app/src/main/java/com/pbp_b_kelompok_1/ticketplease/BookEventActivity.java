@@ -308,7 +308,6 @@ public class BookEventActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-//                headers.get(userPreferences.getUserLogin().getAccessToken());
                 headers.put("Authorization", "Bearer "+
                         userPreferences.getUserLogin().getAccessToken());
                 return headers;

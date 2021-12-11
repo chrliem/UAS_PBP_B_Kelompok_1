@@ -44,6 +44,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.viewHolder>
     @Override
     public MovieAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
         RvMovieBinding binding = RvMovieBinding.inflate(inflater, parent, false);
         return new viewHolder(binding);
     }
@@ -53,6 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.viewHolder>
         Movie movie = listMovie.get(position);
         holder.binding.setMovie(movie);
         holder.binding.executePendingBindings();
+
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

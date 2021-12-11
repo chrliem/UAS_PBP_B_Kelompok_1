@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(LoginActivity.this, userResponse.getMessage(),
                         Toast.LENGTH_SHORT).show();
+
                 userPreferences.setLogin(
                         userResponse.getUser().getId(),
                         userResponse.getAccess_token(),
@@ -138,7 +139,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         };
-
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 

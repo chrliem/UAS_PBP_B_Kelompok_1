@@ -121,14 +121,16 @@ public class FragmentProfileEdit extends Fragment {
                 LayoutInflater layoutInflater = LayoutInflater.from(getContext());
                 View selectMediaView = layoutInflater.inflate(R.layout.layout_media_select, null);
 
-                final android.app.AlertDialog alertDialog = new AlertDialog.Builder(selectMediaView.getContext()).create();
+                final android.app.AlertDialog alertDialog = new AlertDialog
+                        .Builder(selectMediaView.getContext()).create();
 
                 Button btnKamera = selectMediaView.findViewById(R.id.btn_kamera);
                 Button btnGaleri = selectMediaView.findViewById(R.id.btn_galeri);
 
                 btnKamera.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) ==
+                                PackageManager.PERMISSION_DENIED) {
                             String[] permission = {Manifest.permission.CAMERA};
                             requestPermissions(permission, PERMISSION_REQUEST_CAMERA);
                         } else {
@@ -144,7 +146,8 @@ public class FragmentProfileEdit extends Fragment {
                 btnGaleri.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         // Membuka galeri
-                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images
+                                .Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(intent, GALLERY_PICTURE);
 
                         alertDialog.dismiss();

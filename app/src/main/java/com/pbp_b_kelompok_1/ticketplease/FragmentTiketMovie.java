@@ -50,7 +50,8 @@ public class FragmentTiketMovie extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tiket_movie,container,false);
         rvTiketMovie = view.findViewById(R.id.rvTiketMovie);
 
@@ -69,7 +70,8 @@ public class FragmentTiketMovie extends Fragment {
 
     public void getAllTicketMovie(){
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                TicketMovieApi.GET_ALL_URL + user.getFullName(), new Response.Listener<String>() {
+                TicketMovieApi.GET_ALL_URL + user.getFullName(),
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();

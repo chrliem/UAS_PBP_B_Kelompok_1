@@ -54,11 +54,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.viewHolder>{
             @Override
             public void onClick(View view) {
                 Intent DetailEvent = new Intent(context, DetailEventActivity.class);
-//                Mengubah Objek pegawai menjadi format JSON string dengan GSON
                 Gson gson = new Gson();
                 String strEvent = gson.toJson(event);
 
-//                Menyisipkan data json string ke intent
                 DetailEvent.putExtra("detailEvent", strEvent);
 
                 context.startActivity(DetailEvent);

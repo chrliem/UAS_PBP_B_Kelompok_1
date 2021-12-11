@@ -146,8 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                 return "application/json";
             }
         };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
-                0,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }

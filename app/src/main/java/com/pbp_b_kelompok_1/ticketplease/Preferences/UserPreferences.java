@@ -27,7 +27,8 @@ public class UserPreferences {
         editor = sharedPreferences.edit();
     }
 
-    public void setLogin(Long id, String access_token, String name, String email, String username, String password, String imgUrl){
+    public void setLogin(Long id, String access_token, String name, String email,
+                         String username, String password, String imgUrl){
         editor.putLong(KEY_ID, id);
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(ACCESS_TOKEN, access_token);

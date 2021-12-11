@@ -154,7 +154,9 @@ public class BookMovieActivity extends AppCompatActivity {
                 try{
                     String responseBody = new String(error.networkResponse.data,
                             StandardCharsets.UTF_8);
+
                     JSONObject errors = new JSONObject(responseBody);
+
                     Toast.makeText(BookMovieActivity.this, errors.getString("message"),
                             Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {

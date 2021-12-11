@@ -205,12 +205,13 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
         protected TextView kodeTiketMovie, tanggal, namaMovie, namaPemesan, waktu, seat;
         protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
+
         public viewHolder(View itemView){
             super(itemView);
             this.kodeTiketMovie = itemView.findViewById(R.id.tvKodeTiket);
             this.tanggal = itemView.findViewById(R.id.tvTanggalMovie);
             this.waktu = itemView.findViewById(R.id.tvWaktuMovie);
-            this.seat = itemView.findViewById(R.id.tvTempatDudukMovie);
+            this.seat = itemView.findViewById(R.id.tvSeatMovie);
             this.namaMovie = itemView.findViewById(R.id.tvNamaMovieRiwayat);
             this.namaPemesan = itemView.findViewById(R.id.tvNamaPemilikMovie);
 

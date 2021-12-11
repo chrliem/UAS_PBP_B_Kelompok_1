@@ -44,7 +44,8 @@ public class DetailMovieActivity extends AppCompatActivity {
         btnPesanTiketMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent DetailMovie = new Intent(DetailMovieActivity.this, BookMovieActivity.class);
+                Intent DetailMovie = new Intent(DetailMovieActivity.this,
+                        BookMovieActivity.class);
                 Gson gson = new Gson();
                 String strMovie = gson.toJson(movie);
 

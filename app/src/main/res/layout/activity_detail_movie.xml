@@ -110,7 +110,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/sinopsis"
                                 android:textColor="@color/black"
-                                android:textSize="14sp"
+                                android:textSize="14dp"
                                 android:textStyle="bold" />
 
                             <TextView

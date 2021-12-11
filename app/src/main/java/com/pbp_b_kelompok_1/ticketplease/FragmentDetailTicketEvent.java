@@ -31,8 +31,9 @@ public class FragmentDetailTicketEvent extends Fragment {
     }
 
     public static FragmentDetailTicketEvent newInstance(int kodeBooking, String namaEvent,
-                                                   String namaPemilik, String section, String seatNumber,
-                                                   String tanggal, String venue) {
+                                                        String namaPemilik, String section,
+                                                        String seatNumber, String tanggal,
+                                                        String venue) {
         Bundle bundle = new Bundle();
         // Save data here
         bundle.putInt(bund_kodeBooking, kodeBooking);
@@ -52,7 +53,8 @@ public class FragmentDetailTicketEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View root = inflater.inflate(R.layout.fragment_detail_ticket_event, container, false);
+        View root = inflater.inflate(R.layout.fragment_detail_ticket_event, container,
+                false);
 
         int kodeBooking = getArguments().getInt(bund_kodeBooking);
         String namaEvent = getArguments().getString(bund_namaEvent);
