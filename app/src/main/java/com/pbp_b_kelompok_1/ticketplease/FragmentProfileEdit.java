@@ -284,7 +284,7 @@ public class FragmentProfileEdit extends Fragment {
                 tvEmail.getText().toString(),
                 tvUsername.getText().toString(),
                 "null",
-                "INI BELUM TAK ISI APA APA"
+                bitmapToBase64(bitmap)
         );
 
         StringRequest stringRequest = new StringRequest(PUT,
