@@ -44,15 +44,15 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.tiketMovie) {
                 changeFragment(new FragmentTiketMovie());
             } else if (item.getItemId() == R.id.menuProfile) {
-                Bundle bundle = new Bundle();
-                bundle.putLong("id",id);
-                FragmentProfile fragmentProfile = new FragmentProfile();
-                fragmentProfile.setArguments(bundle);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.layout_fragment, fragmentProfile)
-                        .commit();
-//                changeFragment(new FragmentProfile());
+//                Bundle bundle = new Bundle();
+//                bundle.putLong("id",id);
+//                FragmentProfile fragmentProfile = new FragmentProfile();
+//                fragmentProfile.setArguments(bundle);
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.layout_fragment, fragmentProfile)
+//                        .commit();
+                changeFragment(new FragmentProfile());
             }
             return true;
         }

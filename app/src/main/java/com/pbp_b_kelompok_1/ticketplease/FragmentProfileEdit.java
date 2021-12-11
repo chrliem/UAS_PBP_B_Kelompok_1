@@ -7,6 +7,7 @@ import static com.android.volley.Request.Method.PUT;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -73,6 +74,7 @@ public class FragmentProfileEdit extends Fragment {
     private Bitmap bitmap = null;
     private UserResponse userResponse;
     private Long id;
+    private Context context;
 
     public FragmentProfileEdit() {
         // Required empty public constructor
@@ -96,8 +98,7 @@ public class FragmentProfileEdit extends Fragment {
         tvNama = view.findViewById(R.id.tvNamaEdit);
         tvUsername = view.findViewById(R.id.tvUsernameEdit);
         tvEmail = view.findViewById(R.id.tvEmailEdit);
-
-        userPreferences = new UserPreferences(this.getContext());
+        userPreferences = new UserPreferences(getContext());
         user = userPreferences.getUserLogin();
         if(getArguments() != null){
             id = getArguments().getLong("id");
@@ -108,7 +109,7 @@ public class FragmentProfileEdit extends Fragment {
         tvNama.setText(user.getFullName());
         tvUsername.setText(user.getUsername());
         tvEmail.setText(user.getEmail());
-        Glide.with(getContext())
+        Glide.with(this.getContext())
                 .load(user.getImgUrl())
                 .into(photoProfile);
 
@@ -228,12 +229,13 @@ public class FragmentProfileEdit extends Fragment {
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
 
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         return encoded;
     }
+
 //    ===================================================================================
     public void onBackPressed() {
         FragmentManager fragmentManager = getFragmentManager();
@@ -279,6 +281,7 @@ public class FragmentProfileEdit extends Fragment {
 
         User user = new User(
                 null,
+                null,
                 tvNama.getText().toString(),
                 tvEmail.getText().toString(),
                 tvUsername.getText().toString(),
@@ -304,9 +307,9 @@ public class FragmentProfileEdit extends Fragment {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(getContext().getApplicationContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(getContext().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }) {

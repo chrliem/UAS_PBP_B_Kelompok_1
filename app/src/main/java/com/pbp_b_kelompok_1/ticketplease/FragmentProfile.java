@@ -2,6 +2,7 @@ package com.pbp_b_kelompok_1.ticketplease;
 
 import static com.android.volley.Request.Method.GET;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class FragmentProfile extends Fragment {
     private UserPreferences userPreferences;
     private Long id;
     private ImageView ivProfile;
+    private Context context;
 
     public FragmentProfile() {
         // Required empty public constructor
@@ -73,11 +75,12 @@ public class FragmentProfile extends Fragment {
         userPreferences = new UserPreferences(this.getContext());
         user = userPreferences.getUserLogin();
 
-        if(getArguments() != null){
-            id = getArguments().getLong("id");
-            getUserbyId(id);
-        }
-
+//        if(getArguments() != null){
+//            id = getArguments().getLong("id");
+//            getUserbyId(id);
+//        }
+        id = user.getId();
+        getUserbyId(id);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

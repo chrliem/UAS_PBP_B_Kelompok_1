@@ -94,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void register(){
         User user = new User(
                 null,
+                null,
                 textNama.getEditText().getText().toString(),
                 textEmail.getEditText().getText().toString(),
                 textUsername.getEditText().getText().toString(),
