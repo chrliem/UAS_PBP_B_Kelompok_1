@@ -10,9 +10,18 @@
         <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_profile.xml" value="0.15670289855072464" />
         <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_tiket_event.xml" value="0.15670289855072464" />
         <entry key="..\:/KULIAH/Semester 5/Pemrograman Berbasis Platform/Tugas Besar UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketevent.xml" value="0.1796875" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_book_movie.xml" value="0.456" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_detail_movie.xml" value="0.10916919959473151" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_event.xml" value="0.20416666666666666" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_detail_ticket_movie.xml" value="0.33" />
         <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_profile_edit.xml" value="0.1" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/fragment_tiket_movie.xml" value="0.10916919959473151" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_movie.xml" value="0.25" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketevent.xml" value="0.33" />
+        <entry key="..\:/Kuliah/AndroidStudio/PBP/UAS/UAS_PBP_B_Kelompok_1/app/src/main/res/layout/rv_tiketmovie.xml" value="0.33" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_event.xml" value="0.176" />
-        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_movie.xml" value="0.264" />
+        <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_book_movie.xml" value="0.11041666666666666" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_login.xml" value="0.2346014492753623" />
         <entry key="..\:/Kuliah/Semester5/PBP/TicketPlease/app/src/main/res/layout/activity_main.xml" value="0.4" />

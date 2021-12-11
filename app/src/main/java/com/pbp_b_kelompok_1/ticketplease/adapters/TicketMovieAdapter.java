@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
 import java.text.BreakIterator;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +48,9 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
     private Context mContext;
     private LayoutInflater layoutInflater;
     private UserPreferences userPreferences;
-    private User user;
-    private TicketMovieAdapter ticketMovieAdapter;
 
-    public TicketMovieAdapter(Context context, List<TicketMovie> ticketMovieList, UserPreferences userPreferences){
+    public TicketMovieAdapter(Context context, List<TicketMovie> ticketMovieList,
+                              UserPreferences userPreferences){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.ticketMovieList = ticketMovieList;
@@ -70,9 +70,12 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketMovieAdapter.viewHolder holder, int position) {
         TicketMovie ticketMovie = ticketMovieList.get(position);
-        holder.kodeTiketMovie.setText(String.valueOf(ticketMovie.getKodeTiketMovie()));
+        holder.kodeTiketMovie.setText(MessageFormat.format("Kode: {0}",
+                ticketMovie.getKodeTiketMovie()));
         holder.tanggal.setText(ticketMovie.getTanggalMovie());
         holder.waktu.setText(ticketMovie.getWaktuMovie());
+        holder.seat.setText(MessageFormat.format("Seat No: {0}",
+                ticketMovie.getSeatNumber()));
         holder.namaMovie.setText(ticketMovie.getNamaMovie());
         holder.namaPemesan.setText(ticketMovie.getNamaPemesan());
 
@@ -80,10 +83,12 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.fragment_detail_ticket_movie, null);
+                View newLayout = LayoutInflater.from(builder.getContext())
+                        .inflate(R.layout.fragment_detail_ticket_movie, null);
 
 //                Deklarasi Atribut dari Fragment
-                TextView tvNamaMovie, tvPemilikTiket, tvKodeTiket, tvTanggal, tvWaktu, tvSeat, tvSinopsis;
+                TextView tvNamaMovie, tvPemilikTiket, tvKodeTiket, tvTanggal, tvWaktu,
+                        tvSeat, tvSinopsis;
                 MaterialButton btnBack;
 
 //                Mendapatkan Id pada activity
@@ -142,29 +147,34 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 deleteTicketMovie(ticketMovie.getKodeTiketMovie());
                             }
-                        })
-                        .show();
+                        }).show();
             }
         });
     }
     private void deleteTicketMovie(long id){
-        StringRequest stringRequest = new StringRequest(DELETE, TicketMovieApi.DELETE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(DELETE,
+                TicketMovieApi.DELETE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketMovieResponse ticketMovieResponse = gson.fromJson(response, TicketMovieResponse.class);
-                Toast.makeText(layoutInflater.getContext(), ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                TicketMovieResponse ticketMovieResponse = gson.fromJson(response,
+                        TicketMovieResponse.class);
+                Toast.makeText(layoutInflater.getContext(), ticketMovieResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }
         }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(layoutInflater.getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(layoutInflater.getContext(), errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(layoutInflater.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(layoutInflater.getContext(), e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -172,7 +182,8 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
         };
@@ -191,7 +202,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
 
     public class viewHolder extends RecyclerView.ViewHolder{
 
-        protected TextView kodeTiketMovie, tanggal, namaMovie, namaPemesan, waktu;
+        protected TextView kodeTiketMovie, tanggal, namaMovie, namaPemesan, waktu, seat;
         protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
         public viewHolder(View itemView){
@@ -199,6 +210,7 @@ public class TicketMovieAdapter extends RecyclerView.Adapter<TicketMovieAdapter.
             this.kodeTiketMovie = itemView.findViewById(R.id.tvKodeTiket);
             this.tanggal = itemView.findViewById(R.id.tvTanggalMovie);
             this.waktu = itemView.findViewById(R.id.tvWaktuMovie);
+            this.seat = itemView.findViewById(R.id.tvTempatDudukMovie);
             this.namaMovie = itemView.findViewById(R.id.tvNamaMovieRiwayat);
             this.namaPemesan = itemView.findViewById(R.id.tvNamaPemilikMovie);
 

@@ -37,9 +37,7 @@ public class FragmentTiketMovie extends Fragment {
     private TicketMovieAdapter ticketMovieAdapter;
     private ArrayList<TicketMovie> ticketMovieList;
     private UserPreferences userPreferences;
-    private UserResponse userResponse;
     private User user;
-    private TicketMovie ticketMovie;
 
     public FragmentTiketMovie() {
         // Required empty public constructor
@@ -70,22 +68,29 @@ public class FragmentTiketMovie extends Fragment {
     }
 
     public void getAllTicketMovie(){
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, TicketMovieApi.GET_ALL_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                TicketMovieApi.GET_ALL_URL + user.getFullName(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketMovieResponse ticketMovieResponse = gson.fromJson(response, TicketMovieResponse.class);
+                TicketMovieResponse ticketMovieResponse = gson.fromJson(response,
+                        TicketMovieResponse.class);
+
                 ticketMovieAdapter.setTicketMovieList(ticketMovieResponse.getTicketMovieList());
-                Toast.makeText(getContext(), ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getContext(), ticketMovieResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +100,8 @@ public class FragmentTiketMovie extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
         };

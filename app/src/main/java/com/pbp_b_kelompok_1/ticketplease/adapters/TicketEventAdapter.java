@@ -45,6 +45,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,10 +55,9 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     private Context mContext;
     private LayoutInflater layoutInflater;
     private UserPreferences userPreferences;
-    private User user;
-    private TicketEventAdapter ticketEventAdapter;
 
-    public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList, UserPreferences userPreferences){
+    public TicketEventAdapter(Context context, List<TicketEvent> ticketEventList,
+                              UserPreferences userPreferences){
         layoutInflater = LayoutInflater.from(context);
         this.mContext = context;
         this.ticketEventList = ticketEventList;
@@ -68,8 +68,7 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     @Override
     public TicketEventAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.rv_tiketevent, parent,false);
-//        userPreferences = new UserPreferences(view.getContext());
-//        user = userPreferences.getUserLogin();
+
         final viewHolder holder = new viewHolder(view);
 
         return holder;
@@ -78,8 +77,11 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     @Override
     public void onBindViewHolder(@NonNull TicketEventAdapter.viewHolder holder, int position) {
         TicketEvent ticketEvent = ticketEventList.get(position);
-        holder.kodeBooking.setText(String.valueOf(ticketEvent.getKodeTiket()));
+        holder.kodeBooking.setText(MessageFormat.format("Kode: {0}",
+                ticketEvent.getKodeTiket()));
         holder.tanggal.setText(ticketEvent.getTanggalEvent());
+        holder.seat.setText(MessageFormat.format("Seat No:{0}",
+                ticketEvent.getSeatNumber()));
         holder.namaEvent.setText(ticketEvent.getNamaEvent());
         holder.venueEvent.setText(ticketEvent.getVenueEvent());
         holder.namaPemesan.setText(ticketEvent.getNamaPemesan());
@@ -88,10 +90,12 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                View newLayout = LayoutInflater.from(builder.getContext()).inflate(R.layout.fragment_detail_ticket_event, null);
+                View newLayout = LayoutInflater.from(builder.getContext())
+                        .inflate(R.layout.fragment_detail_ticket_event, null);
 
 //                Deklarasi Atribut dari Fragment
-                TextView tvNamaEvent, tvPemilikTiket, tvKodeBooking, tvSection, tvTanggalWaktu, tvVenue, tvSeat;
+                TextView tvNamaEvent, tvPemilikTiket, tvKodeBooking, tvSection,
+                        tvTanggalWaktu, tvVenue, tvSeat;
                 MaterialButton btnBack;
 
 //                Mendapatkan Id pada activity
@@ -109,7 +113,8 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                 tvPemilikTiket.setText(ticketEvent.getNamaPemesan());
                 tvKodeBooking.setText(String.valueOf(ticketEvent.getKodeTiket()));
                 tvSection.setText(ticketEvent.getSection());
-                tvTanggalWaktu.setText(ticketEvent.getTanggalEvent() + "\n" +ticketEvent.getWaktuEvent());
+                tvTanggalWaktu.setText(ticketEvent.getTanggalEvent() +
+                        "\n" +ticketEvent.getWaktuEvent());
                 tvVenue.setText(ticketEvent.getVenueEvent());
                 tvSeat.setText(ticketEvent.getSeatNumber());
 
@@ -150,19 +155,20 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 deleteTicketEvent(ticketEvent.getKodeTiket());
                             }
-                        })
-                        .show();
+                        }).show();
             }
         });
     }
     private void deleteTicketEvent(long id){
-        StringRequest stringRequest = new StringRequest(DELETE, TicketEventApi.DELETE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(DELETE,
+                TicketEventApi.DELETE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
-                Toast.makeText(layoutInflater.getContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                ticketEventAdapter.notifyDataSetChanged();
+                TicketEventResponse ticketEventResponse = gson.fromJson(response,
+                        TicketEventResponse.class);
+                Toast.makeText(layoutInflater.getContext(), ticketEventResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener(){
             @Override
@@ -180,47 +186,14 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
         };
         VolleySingleton.getInstance(layoutInflater.getContext()).addToRequestQueue(stringRequest);
-
     }
 
-//    public void getAllTicketEvent(){
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, TicketEventApi.GET_ALL_URL, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Gson gson = new Gson();
-//                TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
-//                ticketEventAdapter.setTicketEventList(ticketEventResponse.getTicketEventList());
-//                Toast.makeText(mContext.getApplicationContext(), ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                try {
-//                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-//                    JSONObject errors = new JSONObject(responseBody);
-//
-//                    Toast.makeText(mContext.getApplicationContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    Toast.makeText(mContext.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }) {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                HashMap<String, String> headers = new HashMap<String, String>();
-//                headers.put("Accept", "application/json");
-//                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
-//                return headers;
-//            }
-//        };
-//        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-//    }
-//
     @Override
     public int getItemCount() {
         return ticketEventList.size();
@@ -232,13 +205,14 @@ public class TicketEventAdapter extends RecyclerView.Adapter<TicketEventAdapter.
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        protected TextView kodeBooking, tanggal, namaEvent, venueEvent, namaPemesan;
+        protected TextView kodeBooking, tanggal, namaEvent, venueEvent, namaPemesan, seat;
         protected ImageButton btnEdit, btnDelete;
         protected CardView cardView;
         public viewHolder(View itemView){
             super(itemView);
             this.kodeBooking = itemView.findViewById(R.id.tvKodeBooking);
             this.tanggal = itemView.findViewById(R.id.tvTanggal);
+            this.seat = itemView.findViewById(R.id.tvTempatDudukEvent);
             this.namaEvent = itemView.findViewById(R.id.tvNamaEventRiwayat);
             this.venueEvent = itemView.findViewById(R.id.tvVenueRiwayat);
             this.namaPemesan = itemView.findViewById(R.id.tvNamaPemilik);

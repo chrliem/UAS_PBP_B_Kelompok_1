@@ -17,7 +17,8 @@ public class User {
     private String imgUrl;
     private Long id;
 
-    public User(String accessToken, String fullName, String email, String username, String password, String imgUrl) {
+    public User(Long id, String accessToken, String fullName, String email, String username, String password, String imgUrl) {
+        this.id = id;
         this.accessToken = accessToken;
         this.fullName = fullName;
         this.email = email;

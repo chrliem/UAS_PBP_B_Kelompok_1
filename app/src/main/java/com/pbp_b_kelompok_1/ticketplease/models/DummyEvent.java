@@ -31,7 +31,7 @@ public class DummyEvent {
     public static final Event event3 = new Event(
             "11 November 2021",
             "Konser Jazz Night Live",
-            "https://rebornprojectmedia.com/wp-content/uploads/2019/06/Karakter-Penyuka-Musik-Jazz.jpg",
+            "https://www.cultura.id/wp-content/uploads/2020/04/Musik_Jazz_di_Indonesia-Cultura.jpg",
             "GOR Sritex Arena",
             "Jalan Abiyoso No. 21, Sriwedari, Kec. Laweyan, Kota Surakarta, Jawa Tengah 57141",
             100000.00);

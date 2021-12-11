@@ -53,7 +53,8 @@ public class BookMovieActivity extends AppCompatActivity {
     private UserPreferences userPreferences;
     private UserResponse userResponse;
     private static final String[] seatArray = new String[]{
-            "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"
+            "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15",
+            "16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"
     };
     private static final String[] timeArray = new String[]{
             "08.00 WIB","11.00 WIB","14:00 WIB","17:00 WIB","20:00 WIB"
@@ -74,10 +75,12 @@ public class BookMovieActivity extends AppCompatActivity {
         ddTimeMovie = findViewById(R.id.ddTimeMovie);
         ddSeatNumberMovie = findViewById(R.id.ddSeatNumberMovie);
 
-        ArrayAdapter<String> adapterTimeMovie = new ArrayAdapter<>(this, R.layout.list_item,timeArray);
+        ArrayAdapter<String> adapterTimeMovie = new ArrayAdapter<>(this,
+                R.layout.list_item,timeArray);
         ddTimeMovie.setAdapter(adapterTimeMovie);
 
-        ArrayAdapter<String> adapterSeatMovie = new ArrayAdapter<>(this, R.layout.list_item, seatArray);
+        ArrayAdapter<String> adapterSeatMovie = new ArrayAdapter<>(this,
+                R.layout.list_item, seatArray);
         ddSeatNumberMovie.setAdapter(adapterSeatMovie);
 
         userPreferences = new UserPreferences(this);
@@ -93,7 +96,8 @@ public class BookMovieActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     addTicketMovie();
-                    Intent intent = new Intent(BookMovieActivity.this, MainActivity.class);
+                    Intent intent = new Intent(BookMovieActivity.this,
+                            MainActivity.class);
                     startActivity(intent);
                 }
             });
@@ -119,11 +123,13 @@ public class BookMovieActivity extends AppCompatActivity {
     }
 
     private void getTicketMoviebyId(long id){
-        StringRequest stringRequest = new StringRequest(GET, TicketMovieApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET,
+                TicketMovieApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketMovieResponse ticketMovieResponse = gson.fromJson(response, TicketMovieResponse.class);
+                TicketMovieResponse ticketMovieResponse = gson.fromJson(response,
+                        TicketMovieResponse.class);
 
                 TicketMovie ticketMovie = ticketMovieResponse.getTicketMovieList().get(0);
                 TextView tvMovieName = findViewById(R.id.tvMovieNameOrder);
@@ -139,17 +145,21 @@ public class BookMovieActivity extends AppCompatActivity {
                 tvDate.setText(ticketMovie.getTanggalMovie());
                 tvPrice.setText(String.valueOf(ticketMovie.getHarga()));
                 tvSection.setText(ticketMovie.getSinopsis());
-                Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(BookMovieActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMovieActivity.this, errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(BookMovieActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMovieActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -157,7 +167,8 @@ public class BookMovieActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
         };
@@ -188,9 +199,11 @@ public class BookMovieActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        TicketMovieResponse ticketMovieResponse = gson.fromJson(response, TicketMovieResponse.class);
+                        TicketMovieResponse ticketMovieResponse = gson.fromJson(response,
+                                TicketMovieResponse.class);
 
-                        Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookMovieActivity.this,
+                                ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                         Intent returnIntent = new Intent();
                         setResult(Activity.RESULT_OK, returnIntent);
@@ -200,12 +213,15 @@ public class BookMovieActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(BookMovieActivity.this, errors.getString("message"),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMovieActivity.this,
+                            errors.getString("message"),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(BookMovieActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMovieActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -213,7 +229,8 @@ public class BookMovieActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
             @Override
@@ -241,13 +258,16 @@ public class BookMovieActivity extends AppCompatActivity {
                 null
         );
 
-        StringRequest stringRequest = new StringRequest(PUT, TicketMovieApi.UPDATE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(PUT,
+                TicketMovieApi.UPDATE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketMovieResponse ticketMovieResponse = gson.fromJson(response, TicketMovieResponse.class);
+                TicketMovieResponse ticketMovieResponse = gson.fromJson(response,
+                        TicketMovieResponse.class);
 
-                Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookMovieActivity.this, ticketMovieResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
@@ -271,7 +291,8 @@ public class BookMovieActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
             @Override

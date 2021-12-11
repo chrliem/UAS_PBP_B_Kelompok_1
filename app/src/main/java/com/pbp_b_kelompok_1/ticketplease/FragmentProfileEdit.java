@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.PUT;
 
+import static java.lang.String.valueOf;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -45,7 +47,8 @@ import com.pbp_b_kelompok_1.ticketplease.models.TicketEvent;
 import com.pbp_b_kelompok_1.ticketplease.models.TicketEventResponse;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
-import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
+import com.pbp_b_kelompok_1.ticketplease.models.UserCRUDResponse;
+import com.pbp_b_kelompok_1.ticketplease.models.UserCRUDResponse;
 
 import org.json.JSONObject;
 
@@ -61,18 +64,14 @@ public class FragmentProfileEdit extends Fragment {
     private static final int CAMERA_REQUEST = 0;
     private static final int GALLERY_PICTURE = 1;
 
-    private ImageButton btnEditNama, btnEditUsername, btnEditEmail, btnEditAlamat;
-    private Button btnCancel, btnConfirm, btnUpdate;
-    private EditText tvUsername, tvEmail, tvAlamat;
+    private Button btnCancel, btnConfirm;
+    private EditText tvUsername, tvEmail;
     private EditText tvNama;
     private ImageView photoProfile;
     private FloatingActionButton btnCamera;
-    private EditText textEdit;
     private UserPreferences userPreferences;
     private User user;
     private Bitmap bitmap = null;
-    private UserResponse userResponse;
-    private Long id;
 
     public FragmentProfileEdit() {
         // Required empty public constructor
@@ -99,18 +98,8 @@ public class FragmentProfileEdit extends Fragment {
 
         userPreferences = new UserPreferences(this.getContext());
         user = userPreferences.getUserLogin();
-        if(getArguments() != null){
-            id = getArguments().getLong("id");
-            getUserbyId(id);
-//            Toast.makeText(getContext(),id+" Fragment Edit Profile", Toast.LENGTH_LONG).show();
-        }
 
-        tvNama.setText(user.getFullName());
-        tvUsername.setText(user.getUsername());
-        tvEmail.setText(user.getEmail());
-        Glide.with(getContext())
-                .load(user.getImgUrl())
-                .into(photoProfile);
+        getUserbyId();
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +111,7 @@ public class FragmentProfileEdit extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateUser(id);
-                onBackPressed();
+                updateUser();
             }
         });
 
@@ -170,7 +158,8 @@ public class FragmentProfileEdit extends Fragment {
     }
 //    KAMERA
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == PERMISSION_REQUEST_CAMERA) {
@@ -195,7 +184,8 @@ public class FragmentProfileEdit extends Fragment {
             Uri selectedImage = data.getData();
 
             try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                InputStream inputStream = getActivity().getContentResolver()
+                        .openInputStream(selectedImage);
                 bitmap = BitmapFactory.decodeStream(inputStream);
             } catch (Exception e) {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -240,24 +230,31 @@ public class FragmentProfileEdit extends Fragment {
         fragmentManager.popBackStack();
     }
 
-    private void getUserbyId(long id){
-        StringRequest stringRequest = new StringRequest(GET, UserApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+    private void getUserbyId(){
+        StringRequest stringRequest = new StringRequest(GET,
+                UserApi.GET_BY_ID_URL + user.getId(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+                UserCRUDResponse userCRUDResponse = gson.fromJson(response, UserCRUDResponse.class);
 
-                User user = userResponse.getUser();
-
-                Toast.makeText(getContext(), userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                User founduser = userCRUDResponse.getUserCRUD();
+                tvNama.setText(founduser.getFullName());
+                tvUsername.setText(founduser.getUsername());
+                tvEmail.setText(founduser.getEmail());
+                Glide.with(getContext())
+                        .load(founduser.getImgUrl())
+                        .into(photoProfile);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(getContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -267,32 +264,36 @@ public class FragmentProfileEdit extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
-        };            VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-
-
+        };
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
     }
 
-    private void updateUser(Long id){
+    private void updateUser(){
 
-        User user = new User(
-                null,
+        User updatedUser = new User(
+                0L,
+                user.getAccessToken(),
                 tvNama.getText().toString(),
                 tvEmail.getText().toString(),
                 tvUsername.getText().toString(),
-                null,
-                bitmapToBase64(bitmap)
+                "null",
+                "INI BELUM TAK ISI APA APA"
         );
 
-        StringRequest stringRequest = new StringRequest(PUT, UserApi.UPDATE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(PUT,
+                UserApi.UPDATE_URL + user.getId(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                UserResponse userResponse = gson.fromJson(response, UserResponse.class);
 
-                Toast.makeText(getContext(), userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                UserCRUDResponse userCRUDResponse = gson.fromJson(response, UserCRUDResponse.class);
+
+                Toast.makeText(getActivity(), userCRUDResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
                 getActivity().setResult(RESULT_OK, returnIntent);
                 onBackPressed();
@@ -301,12 +302,14 @@ public class FragmentProfileEdit extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(getContext().getApplicationContext(), errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(getContext().getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }) {
@@ -314,14 +317,14 @@ public class FragmentProfileEdit extends Fragment {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-//                headers.get(userPreferences.getUserLogin().getAccessToken());
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
             @Override
             public byte[] getBody() throws AuthFailureError {
                 Gson gson = new Gson();
-                String requestBody = gson.toJson(user);
+                String requestBody = gson.toJson(updatedUser);
                 return requestBody.getBytes(StandardCharsets.UTF_8);
             }
             @Override
@@ -330,6 +333,5 @@ public class FragmentProfileEdit extends Fragment {
             }
         };
         VolleySingleton.getInstance(getContext()).addToRequestQueue(stringRequest);
-
     }
 }

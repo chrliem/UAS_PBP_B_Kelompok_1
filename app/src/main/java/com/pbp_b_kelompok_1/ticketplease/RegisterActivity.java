@@ -2,7 +2,6 @@ package com.pbp_b_kelompok_1.ticketplease;
 
 import static com.android.volley.Request.Method.POST;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,13 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
@@ -37,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout textNama, textEmail, textUsername, textPassword;
     private Button btnRegister;
     private UserPreferences userPreferences;
-    private FirebaseAuth mAuth;
     private String email, password;
 
     @Override
@@ -46,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         userPreferences = new UserPreferences(RegisterActivity.this);
-        mAuth = FirebaseAuth.getInstance();
 
         textNama = findViewById(R.id.inputRegisName);
         textEmail = findViewById(R.id.inputRegisEmail);
@@ -70,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = textUsername.getEditText().getText().toString();
                 password = textPassword.getEditText().getText().toString();
 
-                if(nama.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty() || password.trim().isEmpty()){
+                if(nama.trim().isEmpty() || email.trim().isEmpty() || username.trim().isEmpty()
+                        || password.trim().isEmpty()){
                     if(nama.trim().isEmpty()){
                         textNama.setError("Nama must be filled with text");
                     }
@@ -94,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void register(){
         User user = new User(
                 null,
+                null,
                 textNama.getEditText().getText().toString(),
                 textEmail.getEditText().getText().toString(),
                 textUsername.getEditText().getText().toString(),
@@ -101,13 +98,15 @@ public class RegisterActivity extends AppCompatActivity {
                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
         );
 
-        StringRequest stringRequest = new StringRequest(POST, UserApi.REGISTER_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(POST, UserApi.REGISTER_URL,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
 
-                Toast.makeText(RegisterActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, userResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 finish();
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -116,12 +115,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, errors.getString("message"),
+                            Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -144,24 +146,9 @@ public class RegisterActivity extends AppCompatActivity {
                 return "application/json";
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-
-        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((task) -> {
-            if(task.isSuccessful()){
-                firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "Registered, please verify your email", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }else{
-                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

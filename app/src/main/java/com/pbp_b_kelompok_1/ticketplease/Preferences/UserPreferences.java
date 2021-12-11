@@ -27,7 +27,8 @@ public class UserPreferences {
         editor = sharedPreferences.edit();
     }
 
-    public void setLogin(String access_token, String name, String email, String username, String password, String imgUrl){
+    public void setLogin(Long id, String access_token, String name, String email, String username, String password, String imgUrl){
+        editor.putLong(KEY_ID, id);
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(ACCESS_TOKEN, access_token);
         editor.putString(KEY_NAME, name);
@@ -41,7 +42,9 @@ public class UserPreferences {
 
     public User getUserLogin(){
         String access_token, username, password, name, email, imgUrl;
+        Long id;
 
+        id = sharedPreferences.getLong(KEY_ID, 0L);
         access_token = sharedPreferences.getString(ACCESS_TOKEN, null);
         username = sharedPreferences.getString(KEY_USERNAME, null);
         password = sharedPreferences.getString(KEY_PASSWORD, null);
@@ -49,7 +52,7 @@ public class UserPreferences {
         email = sharedPreferences.getString(KEY_EMAIL, null);
         imgUrl = sharedPreferences.getString(KEY_IMAGE,null);
 
-        return new User(access_token, name, email, username, password, imgUrl);
+        return new User(id, access_token, name, email, username, password, imgUrl);
     }
 
     public boolean checkLogin(){

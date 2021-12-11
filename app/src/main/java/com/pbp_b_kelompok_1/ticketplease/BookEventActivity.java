@@ -46,20 +46,19 @@ import java.util.Map;
 public class BookEventActivity extends AppCompatActivity {
 
     private Event event;
-    private TicketEventAdapter ticketEventAdapter;
     private ActivityBookEventBinding binding;
     private AutoCompleteTextView ddSection, ddSeatNumber, ddTime;
     private ImageButton btnBack;
     private Button btnPesan;
     private User user;
-    private LinearLayout layoutLoading;
     private UserPreferences userPreferences;
-    private UserResponse userResponse;
+
     private static final String[] sectionAray = new String[]{
             "VVIP","VIP","Reguler"
     };
     private static final String[] seatArray = new String[]{
-            "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"
+            "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15",
+            "16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"
     };
     private static final String[] timeArray = new String[]{
             "08.00 WIB","11.00 WIB","14:00 WIB","17:00 WIB","20:00 WIB"
@@ -81,32 +80,36 @@ public class BookEventActivity extends AppCompatActivity {
         ddTime = findViewById(R.id.ddTime);
         ddSeatNumber = findViewById(R.id.ddSeatNumber);
 
-        ArrayAdapter<String> adapterSection = new ArrayAdapter<>(this, R.layout.list_item, sectionAray);
+        ArrayAdapter<String> adapterSection = new ArrayAdapter<>(this,
+                R.layout.list_item, sectionAray);
         ddSection.setAdapter(adapterSection);
 
-        ArrayAdapter<String> adapterTime = new ArrayAdapter<>(this, R.layout.list_item,timeArray);
+        ArrayAdapter<String> adapterTime = new ArrayAdapter<>(this,
+                R.layout.list_item,timeArray);
         ddTime.setAdapter(adapterTime);
 
-        ArrayAdapter<String> adapterSeat = new ArrayAdapter<>(this, R.layout.list_item, seatArray);
+        ArrayAdapter<String> adapterSeat = new ArrayAdapter<>(this,
+                R.layout.list_item, seatArray);
         ddSeatNumber.setAdapter(adapterSeat);
 
         userPreferences = new UserPreferences(this);
         user = userPreferences.getUserLogin();
         btnPesan = findViewById(R.id.btnPesan);
         long id = getIntent().getLongExtra("kodeTiket",-1);
-        Toast.makeText(BookEventActivity.this, id + "", Toast.LENGTH_SHORT).show();
-//        long id = getIntent().getIntExtra("kodeTiket",-1);
 
         if(id==-1){
             btnPesan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     addTicketEvent();
-                    Intent intent = new Intent(BookEventActivity.this, MainActivity.class);
+                    Intent intent = new Intent(BookEventActivity.this,
+                            MainActivity.class);
                     startActivity(intent);
                 }
             });
-        }else{
+        }
+        else
+            {
             getTicketEventbyId(id);
 
             btnPesan.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +133,13 @@ public class BookEventActivity extends AppCompatActivity {
     }
 
     private void getTicketEventbyId(long id){
-        StringRequest stringRequest = new StringRequest(GET, TicketEventApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET,
+                TicketEventApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();
-                    TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
+                    TicketEventResponse ticketEventResponse = gson.fromJson(response,
+                            TicketEventResponse.class);
 
                     TicketEvent ticketEvent = ticketEventResponse.getTicketEventList().get(0);
                     TextView tvEventName = findViewById(R.id.tvEventNameOrder);
@@ -149,17 +154,21 @@ public class BookEventActivity extends AppCompatActivity {
                     ddTime.setText(ticketEvent.getWaktuEvent(),false);
                     tvDate.setText(ticketEvent.getTanggalEvent());
                     tvPrice.setText(String.valueOf(ticketEvent.getHarga()));
-                    Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try{
-                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        String responseBody = new String(error.networkResponse.data,
+                                StandardCharsets.UTF_8);
                         JSONObject errors = new JSONObject(responseBody);
-                        Toast.makeText(BookEventActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookEventActivity.this,
+                                errors.getString("message"), Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
-                        Toast.makeText(BookEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookEventActivity.this, e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }){
@@ -167,12 +176,12 @@ public class BookEventActivity extends AppCompatActivity {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     headers.put("Accept", "application/json");
-                    headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());
+                    headers.put("Authorization", "Bearer "+
+                            userPreferences.getUserLogin().getAccessToken());
                     return headers;
                 }
-            };            VolleySingleton.getInstance(BookEventActivity.this).addToRequestQueue(stringRequest);
-
-
+            };
+        VolleySingleton.getInstance(BookEventActivity.this).addToRequestQueue(stringRequest);
     }
 
     private void addTicketEvent(){
@@ -203,9 +212,11 @@ public class BookEventActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
+                        TicketEventResponse ticketEventResponse = gson.fromJson(response,
+                                TicketEventResponse.class);
 
-                        Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookEventActivity.this,
+                                ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                         Intent returnIntent = new Intent();
                         setResult(Activity.RESULT_OK, returnIntent);
@@ -215,13 +226,15 @@ public class BookEventActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
 
-                    Toast.makeText(BookEventActivity.this, errors.getString("message"),Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(BookEventActivity.this, errors.getString(userPreferences.getUserLogin().getAccessToken()),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookEventActivity.this,
+                            errors.getString("message"),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(BookEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookEventActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -229,8 +242,8 @@ public class BookEventActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-//                headers.get(userPreferences.getUserLogin().getAccessToken());
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
             @Override
@@ -246,7 +259,6 @@ public class BookEventActivity extends AppCompatActivity {
 
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-
     }
 
     private void updateTicketEvent(long id){
@@ -263,13 +275,16 @@ public class BookEventActivity extends AppCompatActivity {
                 null
         );
 
-        StringRequest stringRequest = new StringRequest(PUT, TicketEventApi.UPDATE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(PUT,
+                TicketEventApi.UPDATE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TicketEventResponse ticketEventResponse = gson.fromJson(response, TicketEventResponse.class);
+                TicketEventResponse ticketEventResponse = gson.fromJson(response,
+                        TicketEventResponse.class);
 
-                Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BookEventActivity.this, ticketEventResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
@@ -294,7 +309,8 @@ public class BookEventActivity extends AppCompatActivity {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
 //                headers.get(userPreferences.getUserLogin().getAccessToken());
-                headers.put("Authorization", "Bearer "+ userPreferences.getUserLogin().getAccessToken());  //nanti ini token ambil dari userPreference
+                headers.put("Authorization", "Bearer "+
+                        userPreferences.getUserLogin().getAccessToken());
                 return headers;
             }
             @Override
@@ -309,6 +325,5 @@ public class BookEventActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
-
     }
 }

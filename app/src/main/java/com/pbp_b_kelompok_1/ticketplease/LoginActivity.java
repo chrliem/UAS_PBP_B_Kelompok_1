@@ -1,7 +1,6 @@
 package com.pbp_b_kelompok_1.ticketplease;
 
 import static com.android.volley.Request.Method.POST;
-import static com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences.ACCESS_TOKEN;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.pbp_b_kelompok_1.ticketplease.Preferences.UserPreferences;
-import com.pbp_b_kelompok_1.ticketplease.UnitTesting.LoginPresenter;
 import com.pbp_b_kelompok_1.ticketplease.api.UserApi;
 import com.pbp_b_kelompok_1.ticketplease.models.User;
 import com.pbp_b_kelompok_1.ticketplease.models.UserResponse;
@@ -32,7 +30,6 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginPresenter presenter;
     private Button btnLogin;
     private TextInputLayout textUsername, textPassword;
     private UserPreferences userPreferences;
@@ -53,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         textLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this,
+                        RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -82,15 +80,19 @@ public class LoginActivity extends AppCompatActivity {
         final String username = textUsername.getEditText().getText().toString().trim();
         final String password = textPassword.getEditText().getText().toString().trim();
 
-        User user = new User(userPreferences.getUserLogin().getAccessToken(), userPreferences.getUserLogin().getFullName(),userPreferences.getUserLogin().getEmail(),username,password,userPreferences.getUserLogin().getImgUrl());
-        StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL, new Response.Listener<String>() {
+        User user = new User(null, null, null, null,
+                username, password, null);
+        StringRequest stringRequest = new StringRequest(POST, UserApi.LOGIN_URL,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 UserResponse userResponse = gson.fromJson(response, UserResponse.class);
 
-                Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, userResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 userPreferences.setLogin(
+                        userResponse.getUser().getId(),
                         userResponse.getAccess_token(),
                         userResponse.getUser().getFullName(),
                         userResponse.getUser().getEmail(),
@@ -99,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                         userResponse.getUser().getImgUrl());
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("id", userResponse.getUser().getId());
                 startActivity(intent);
                 finish();
             }
@@ -107,11 +108,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    String responseBody = new String(error.networkResponse.data,
+                            StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, errors.getString("message"),
+                                Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }){
@@ -119,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError{
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Accept", "application/json");
-                headers.put("Authorization", "Bearer "+ ACCESS_TOKEN);  //nanti ini token ambil dari userPreference
                 return headers;
             }
             @Override

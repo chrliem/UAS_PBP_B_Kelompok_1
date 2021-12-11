@@ -7,14 +7,11 @@ import java.util.List;
 public class UserResponse {
 
     private String message;
+
     @SerializedName("user")
     private User user;
 
     private String access_token;
-
-    public UserResponse(String message) {
-        this.message = message;
-    }
 
     public UserResponse(String message, User user, String access_token) {
         this.message = message;
