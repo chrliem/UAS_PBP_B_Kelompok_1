@@ -14,7 +14,7 @@
         android:fontFamily="@font/rubikmono"
         android:text="@string/your_movie_tickets"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="18sp"
         tools:ignore="RelativeOverlap"
         android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"/>
