@@ -89,7 +89,6 @@ public class BookMovieActivity extends AppCompatActivity {
         btnPesanMovie = findViewById(R.id.btnPesanMovie);
 
         long id = getIntent().getLongExtra("kodeTiketMovie",-1);
-        Toast.makeText(BookMovieActivity.this, id + "", Toast.LENGTH_SHORT).show();
 
         if(id==-1){
             btnPesanMovie.setOnClickListener(new View.OnClickListener() {
